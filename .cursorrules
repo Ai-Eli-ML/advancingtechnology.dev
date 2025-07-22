@@ -1,0 +1,44 @@
+# AI Development Rules for AdvancingTechnology.Dev
+
+## Core Principle
+This project is developed by AI agents. All development must follow the official workflow documented in the **AI Development Guide**.
+
+## Primary Guides
+- **AI Development Guide**: completed-docs/claude-ai-workflow-system/templates/docs/ai_workflow/AI_DEVELOPMENT_GUIDE.md
+- **Best Practices**: completed-docs/claude-ai-workflow-system/best-practices.md
+- **Development Plan**: completed-docs/claude-ai-workflow-system/templates/docs/project_management/development-plan.json
+- **Deployment Guide**: completed-docs/technical_specs/DEPLOYMENT_GUIDE.md
+
+## Development Standards
+
+### Code Quality
+- Always use TypeScript strict mode
+- Follow coding standards in the development plan
+- Implement error handling and input validation (Zod)
+- Use consistent naming conventions (camelCase, PascalCase, kebab-case as defined)
+- No direct Supabase client creation in components; use provided hooks/utilities
+
+### Testing Requirements
+- Write unit tests for all business logic
+- Include integration tests for critical user flows
+- Ensure all tests pass before submitting changes
+- Maintain test coverage targets defined in the development plan
+
+### Documentation
+- Update features-tracking.md with progress
+- Document API changes and breaking modifications
+- Keep README and setup instructions current
+- Add inline comments for complex business logic
+
+### Workflow
+- Use MCP tools for analysis and planning before coding
+- Use Sequential Thinking for complex problems
+- Stop and confirm with user at each major milestone
+- Run and pass:
+  - pnpm type-check
+  - pnpm lint:check
+  - pnpm build
+  - pnpm test-rls
+- No PR may be merged to main with type/lint/build/test errors
+
+## All other rules and processes are defined in the appropriate guide. 
