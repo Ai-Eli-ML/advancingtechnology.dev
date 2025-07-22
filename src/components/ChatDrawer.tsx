@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Send, X, Minimize2, Maximize2, Bot, User } from "lucide-react";
 
@@ -26,7 +28,7 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!inputValue.trim()) return;
 
     const userMessage: Message = {
@@ -40,17 +42,43 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Call the AJ chat API
+      const response = await fetch('/api/aj-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(m => ({
+            role: m.type === 'user' ? 'user' : 'assistant',
+            content: m.content
+          }))
+        })
+      });
+
+      const data = await response.json();
+      
       const assistantMessage: Message = {
         id: messages.length + 2,
         type: 'assistant',
-        content: "I'm processing your request. This is a demo response. In the live version, I'll provide helpful answers based on your questions!",
+        content: data.message?.content || "I'm sorry, I couldn't process your request. Please try again.",
         timestamp: new Date()
       };
+      
       setMessages(prev => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error('Chat error:', error);
+      const errorMessage: Message = {
+        id: messages.length + 2,
+        type: 'assistant',
+        content: "I'm experiencing some technical difficulties. Please try again later.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   if (!isOpen) return null;
