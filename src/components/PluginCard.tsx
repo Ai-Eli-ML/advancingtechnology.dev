@@ -79,7 +79,7 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className }) => {
 
             {/* Categories */}
             <div className="flex flex-wrap gap-1">
-              {plugin.categories.slice(0, 3).map((category) => (
+              {plugin.categories.slice(0, 3).map((category: string) => (
                 <span
                   key={category}
                   className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-xs"

@@ -13,7 +13,6 @@ import {
   Download,
   Eye,
   Edit,
-  Trash2,
   Star,
   TrendingUp,
   Calendar,
@@ -141,7 +140,7 @@ export default function DashboardPluginsPage() {
               <div className="flex gap-2">
                 <select
                   value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value as any)}
+                  onChange={(e) => setFilterStatus(e.target.value as "all" | "active" | "draft" | "pending")}
                   className="px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
                 >
                   <option value="all">All Status</option>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
@@ -8,7 +8,7 @@ import ChatDrawer from "@/components/ChatDrawer";
 import { Mail, Lock, User, Eye, EyeOff, Github, Chrome } from "lucide-react";
 import Link from "next/link";
 
-export default function AuthPage() {
+function AuthForm() {
   const searchParams = useSearchParams();
   const isSignUp = searchParams.get("mode") === "signup";
   const [showPassword, setShowPassword] = useState(false);
@@ -225,5 +225,19 @@ export default function AuthPage() {
         </svg>
       </button>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse">
+          <div className="w-16 h-16 bg-primary/20 rounded-full"></div>
+        </div>
+      </div>
+    }>
+      <AuthForm />
+    </Suspense>
   );
 }

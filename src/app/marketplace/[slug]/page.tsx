@@ -13,13 +13,9 @@ import {
   Star, 
   Download, 
   Users, 
-  Code2, 
-  Shield, 
-  Zap,
   ArrowLeft,
   Check,
-  Copy,
-  ExternalLink
+  Copy
 } from "lucide-react";
 
 export default function PluginDetailPage() {
@@ -41,7 +37,7 @@ export default function PluginDetailPage() {
   const relatedPlugins = mockPlugins
     .filter(p => 
       p.id !== plugin.id && 
-      p.categories.some(cat => plugin.categories.includes(cat))
+      p.categories.some((cat: string) => plugin.categories.includes(cat))
     )
     .slice(0, 3);
 
@@ -70,12 +66,14 @@ export default function PluginDetailPage() {
               <div className="lg:col-span-2">
                 <div className="flex items-start gap-6 mb-6">
                   <div className="relative h-24 w-24 rounded-lg overflow-hidden bg-muted shrink-0">
-                    <Image
-                      src={plugin.coverImage}
-                      alt={plugin.name}
-                      fill
-                      className="object-cover"
-                    />
+                    {plugin.coverImage && (
+                      <Image
+                        src={plugin.coverImage}
+                        alt={plugin.name}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <div className="flex-1">
                     <h1 className="font-display text-3xl font-bold mb-2">{plugin.name}</h1>
@@ -106,7 +104,7 @@ export default function PluginDetailPage() {
 
                 {/* Categories */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {plugin.categories.map((category) => (
+                  {plugin.categories.map((category: string) => (
                     <span
                       key={category}
                       className="inline-flex items-center rounded-full bg-muted px-3 py-1 text-sm"

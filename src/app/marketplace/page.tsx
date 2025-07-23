@@ -44,7 +44,7 @@ export default function MarketplacePage() {
     // Filter by category
     if (selectedCategory !== "All") {
       plugins = plugins.filter(plugin =>
-        plugin.categories.some(cat => 
+        plugin.categories.some((cat: string) => 
           cat.toLowerCase() === selectedCategory.toLowerCase()
         )
       );
@@ -55,7 +55,7 @@ export default function MarketplacePage() {
       plugins = plugins.filter(plugin =>
         plugin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         plugin.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        plugin.categories.some(cat => 
+        plugin.categories.some((cat: string) => 
           cat.toLowerCase().includes(searchQuery.toLowerCase())
         )
       );

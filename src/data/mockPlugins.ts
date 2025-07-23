@@ -117,7 +117,7 @@ export function getPluginById(id: string): Plugin | undefined {
 
 export function getPluginsByCategory(category: string): Plugin[] {
   return mockPlugins.filter(plugin => 
-    plugin.categories.some(cat => 
+    plugin.categories.some((cat: string) => 
       cat.toLowerCase() === category.toLowerCase()
     )
   );

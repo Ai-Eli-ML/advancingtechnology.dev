@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { 
   Blocks, 
   Settings, 
@@ -51,13 +52,13 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
         <ul className="space-y-1">
           {navItems.map((item) => (
             <li key={item.href}>
-              <a
+              <Link
                 href={item.href}
                 className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 group"
               >
                 <item.icon className="w-5 h-5 flex-shrink-0" />
                 <span className="font-medium">{item.label}</span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -65,20 +66,20 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
 
       {/* Footer Actions */}
       <div className="p-4 border-t border-white/10">
-        <a
+        <Link
           href="/dashboard/support"
           className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200"
         >
           <HelpCircle className="w-5 h-5" />
           <span className="font-medium">Support</span>
-        </a>
-        <a
+        </Link>
+        <Link
           href="/"
           className="flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 mt-1"
         >
           <ChevronLeft className="w-5 h-5" />
           <span className="font-medium">Back to Home</span>
-        </a>
+        </Link>
       </div>
     </aside>
   );

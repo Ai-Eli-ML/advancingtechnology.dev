@@ -4,14 +4,12 @@ import React, { useState } from "react";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
-import { 
+import {
   Calendar,
   Clock,
-  User,
   Tag,
   ArrowRight,
   Search,
-  Filter,
   TrendingUp,
   BookOpen
 } from "lucide-react";
@@ -268,7 +266,7 @@ export default function BlogPage() {
               <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="font-display text-xl font-semibold mb-2">No posts found</h3>
               <p className="text-muted-foreground">
-                Try adjusting your search or filters to find what you're looking for.
+                Try adjusting your search or filters to find what you&apos;re looking for.
               </p>
             </div>
           )}
