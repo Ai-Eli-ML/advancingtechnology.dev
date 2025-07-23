@@ -5,8 +5,10 @@ import { useSearchParams } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
-import { Mail, Lock, User, Eye, EyeOff, Github, Chrome } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Github, Chrome, Sparkles, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 function AuthForm() {
   const searchParams = useSearchParams();
@@ -34,82 +36,115 @@ function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background-secondary/20 to-background flex flex-col">
       <NavigationBar />
       
-      <main className="flex-1 flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md">
-          <div className="bg-card rounded-xl shadow-lg border border-border p-8">
+      <main className="flex-1 flex items-center justify-center py-12 px-4 relative">
+        {/* Background decoration */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md"
+        >
+          <div className="bg-card/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-border/50 p-8 hover:shadow-3xl transition-shadow duration-300">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="font-display text-3xl font-bold mb-2">
-                {isSignUp ? "Create an account" : "Welcome back"}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
+              >
+                <Sparkles className="w-8 h-8 text-white" />
+              </motion.div>
+              <h1 className="font-display text-3xl font-bold mb-2 text-gradient">
+                {isSignUp ? "Create Account" : "Welcome Back"}
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-foreground-secondary">
                 {isSignUp 
-                  ? "Start building with AI-powered tools" 
-                  : "Sign in to your account to continue"}
+                  ? "Join the AI revolution today" 
+                  : "Continue your journey with us"}
               </p>
             </div>
 
             {/* OAuth Buttons */}
             <div className="space-y-3 mb-6">
-              <button className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-border rounded-lg hover:bg-muted transition-colors">
-                <Github className="w-5 h-5" />
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group"
+              >
+                <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="font-medium">Continue with GitHub</span>
-              </button>
-              <button className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-border rounded-lg hover:bg-muted transition-colors">
-                <Chrome className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group"
+              >
+                <Chrome className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="font-medium">Continue with Google</span>
-              </button>
+                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+              </motion.button>
             </div>
 
             {/* Divider */}
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border"></div>
+                <div className="w-full border-t border-border/50"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-card text-muted-foreground">Or continue with email</span>
+                <span className="px-4 bg-card/80 backdrop-blur-sm text-muted-foreground rounded-full">Or continue with email</span>
               </div>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {isSignUp && (
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <label htmlFor="name" className="block text-sm font-semibold mb-2 text-foreground">
                     Full Name
                   </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <div className="relative group">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                     <input
                       type="text"
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
-                      placeholder="John Doe"
+                      className="input pl-11 pr-4 py-3.5 w-full"
+                      placeholder="Enter your full name"
                       required={isSignUp}
                     />
                   </div>
-                </div>
+                </motion.div>
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold mb-2 text-foreground">
                   Email Address
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <div className="relative group">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
+                    className="input pl-11 pr-4 py-3.5 w-full"
                     placeholder="you@example.com"
                     required
                   />
@@ -117,29 +152,60 @@ function AuthForm() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <div className="flex items-center justify-between mb-2">
+                  <label htmlFor="password" className="block text-sm font-semibold text-foreground">
+                    Password
+                  </label>
+                  {!isSignUp && (
+                    <Link href="/auth/reset-password" className="text-xs text-primary hover:text-primary-dark transition-colors">
+                      Forgot password?
+                    </Link>
+                  )}
+                </div>
+                <div className="relative group">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-12 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
-                    placeholder="••••••••"
+                    className="input pl-11 pr-12 py-3.5 w-full"
+                    placeholder="Enter your password"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-md hover:bg-muted"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+                {isSignUp && (
+                  <div className="mt-2 space-y-1">
+                    <div className={cn(
+                      "text-xs flex items-center gap-2 transition-colors",
+                      formData.password.length >= 8 ? "text-green-600" : "text-muted-foreground"
+                    )}>
+                      <Check className={cn(
+                        "w-3 h-3",
+                        formData.password.length >= 8 ? "opacity-100" : "opacity-0"
+                      )} />
+                      At least 8 characters
+                    </div>
+                    <div className={cn(
+                      "text-xs flex items-center gap-2 transition-colors",
+                      /[A-Z]/.test(formData.password) && /[a-z]/.test(formData.password) ? "text-green-600" : "text-muted-foreground"
+                    )}>
+                      <Check className={cn(
+                        "w-3 h-3",
+                        /[A-Z]/.test(formData.password) && /[a-z]/.test(formData.password) ? "opacity-100" : "opacity-0"
+                      )} />
+                      Mix of uppercase & lowercase
+                    </div>
+                  </div>
+                )}
               </div>
 
               {isSignUp && (
@@ -208,7 +274,7 @@ function AuthForm() {
               </Link>
             </p>
           )}
-        </div>
+        </motion.div>
       </main>
 
       <Footer />
