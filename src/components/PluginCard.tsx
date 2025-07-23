@@ -22,10 +22,10 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
         className={cn(
           "h-3.5 w-3.5 transition-all duration-300",
           i < Math.floor(rating) 
-            ? "fill-yellow-400 text-yellow-400" 
+            ? "fill-gold text-gold" 
             : i < rating 
-            ? "fill-yellow-400/50 text-yellow-400" 
-            : "fill-transparent text-gray-300"
+            ? "fill-gold/50 text-gold" 
+            : "fill-transparent text-gold/30"
         )}
       />
     ));
@@ -41,13 +41,13 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
     >
       <Link href={`/marketplace/${plugin.id}`} className="block h-full">
         <div className={cn(
-          "group relative h-full overflow-hidden rounded-2xl border border-border/50 bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-300",
-          "bg-gradient-to-b from-card to-card-hover/30",
+          "group relative h-full overflow-hidden rounded-2xl border border-gold/30 bg-cream hover:border-gold hover:shadow-2xl transition-all duration-300",
+          "bg-gradient-to-b from-cream to-cream-dark/30",
           className
         )}>
           {/* Premium Badge */}
           {plugin.verified && (
-            <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 rounded-full bg-primary/90 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg">
+            <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 rounded-full bg-gold/90 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white shadow-lg">
               <Shield className="h-3 w-3" />
               Verified
             </div>
@@ -67,16 +67,16 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </>
             ) : (
-              <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5">
-                <Tag className="h-16 w-16 text-muted-foreground/30" />
+              <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue/5 to-gold/5">
+                <Tag className="h-16 w-16 text-gold/30" />
               </div>
             )}
             
             {/* Price Badge */}
-            <div className="absolute top-4 right-4 rounded-lg bg-background/95 backdrop-blur-md px-3 py-1.5 shadow-lg border border-border/50">
+            <div className="absolute top-4 right-4 rounded-lg bg-white/95 backdrop-blur-md px-3 py-1.5 shadow-lg border border-gold/30">
               <span className="font-bold text-base">
                 {plugin.price === 0 ? (
-                  <span className="text-green-600">Free</span>
+                  <span className="text-blue">Free</span>
                 ) : (
                   <span className="text-foreground">${plugin.price}</span>
                 )}
@@ -88,10 +88,10 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
           <div className="p-6 space-y-4">
             {/* Title and Description */}
             <div>
-              <h3 className="font-semibold text-xl mb-2 line-clamp-1 group-hover:text-primary transition-colors duration-200">
+              <h3 className="font-semibold text-xl mb-2 line-clamp-1 group-hover:text-blue transition-colors duration-200">
                 {plugin.name}
               </h3>
-              <p className="text-sm text-foreground-secondary line-clamp-2 leading-relaxed">
+              <p className="text-sm text-blue-dark/70 line-clamp-2 leading-relaxed">
                 {plugin.tagline}
               </p>
             </div>
@@ -106,13 +106,13 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
                 <span className="text-sm font-medium text-foreground">
                   {plugin.rating.toFixed(1)}
                 </span>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-blue-dark/50">
                   ({plugin.reviewCount || '0'})
                 </span>
               </div>
               
               {/* Downloads */}
-              <div className="flex items-center gap-1.5 text-muted-foreground">
+              <div className="flex items-center gap-1.5 text-blue-dark/50">
                 <Download className="h-3.5 w-3.5" />
                 <span className="text-xs font-medium">{plugin.downloads || '0'}</span>
               </div>
@@ -123,28 +123,28 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
               {plugin.categories.slice(0, 2).map((category: string) => (
                 <span
                   key={category}
-                  className="inline-flex items-center rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+                  className="inline-flex items-center rounded-lg bg-blue/10 px-2.5 py-1 text-xs font-medium text-blue hover:bg-blue/20 transition-colors"
                 >
                   {category}
                 </span>
               ))}
               {plugin.categories.length > 2 && (
-                <span className="inline-flex items-center rounded-lg bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                <span className="inline-flex items-center rounded-lg bg-gold/10 px-2.5 py-1 text-xs font-medium text-gold-dark">
                   +{plugin.categories.length - 2}
                 </span>
               )}
             </div>
 
             {/* Bottom Actions - Hidden by default, shown on hover */}
-            <div className="flex items-center justify-between pt-4 border-t border-border/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <div className="flex items-center justify-between pt-4 border-t border-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="flex items-center gap-4 text-xs text-blue-dark/50">
                 <div className="flex items-center gap-1">
                   <Users className="h-3.5 w-3.5" />
                   <span>{plugin.activeUsers || '0'} users</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <TrendingUp className="h-3.5 w-3.5 text-green-500" />
-                  <span className="text-green-600">Trending</span>
+                  <TrendingUp className="h-3.5 w-3.5 text-gold" />
+                  <span className="text-gold-dark">Trending</span>
                 </div>
               </div>
             </div>

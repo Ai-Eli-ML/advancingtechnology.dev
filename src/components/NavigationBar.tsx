@@ -57,16 +57,16 @@ const NavigationBar = () => {
     <nav className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
       scrolled
-        ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-sm"
-        : "bg-background/50 backdrop-blur-sm"
+        ? "bg-cream/95 backdrop-blur-lg border-b border-gold-light/30 shadow-sm"
+        : "bg-cream/80 backdrop-blur-sm"
     )}>
       <div className="container flex h-20 items-center">
         <Link href="/" className="flex items-center space-x-3 group">
           <div className="relative">
-            <div className="absolute inset-0 bg-primary/20 rounded-lg blur-lg group-hover:bg-primary/30 transition-colors" />
-            <Sparkles className="h-8 w-8 text-primary relative" />
+            <div className="absolute inset-0 bg-gold/20 rounded-lg blur-lg group-hover:bg-gold/30 transition-colors" />
+            <Sparkles className="h-8 w-8 text-gold relative" />
           </div>
-          <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">AT.dev</span>
+          <span className="font-display text-2xl font-bold text-gradient-blue">AT.dev</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -79,14 +79,14 @@ const NavigationBar = () => {
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 group",
                   pathname === link.href
-                    ? "text-primary"
-                    : "text-foreground-secondary hover:text-foreground"
+                    ? "text-blue"
+                    : "text-blue-dark/70 hover:text-blue"
                 )}
               >
                 {pathname === link.href && (
                   <motion.div
                     layoutId="navbar-active"
-                    className="absolute inset-0 bg-primary/10 rounded-lg"
+                    className="absolute inset-0 bg-gold/10 border border-gold/20 rounded-lg"
                     transition={{ type: "spring", duration: 0.5 }}
                   />
                 )}
@@ -98,25 +98,25 @@ const NavigationBar = () => {
           <div className="flex items-center space-x-3">
             <button
               onClick={toggleDarkMode}
-              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-muted transition-colors group"
+              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gold/10 transition-colors group"
               aria-label="Toggle dark mode"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-accent/10 rounded-lg transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue/0 to-blue/0 group-hover:from-blue/10 group-hover:to-gold/10 rounded-lg transition-all duration-300" />
               {isDarkMode ? (
-                <Sun className="h-5 w-5 relative transition-transform group-hover:rotate-90 duration-500" />
+                <Sun className="h-5 w-5 relative transition-transform group-hover:rotate-90 duration-500 text-gold" />
               ) : (
-                <Moon className="h-5 w-5 relative transition-transform group-hover:-rotate-12 duration-500" />
+                <Moon className="h-5 w-5 relative transition-transform group-hover:-rotate-12 duration-500 text-blue" />
               )}
             </button>
             <Link
               href="/auth"
-              className="inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium text-foreground-secondary hover:text-foreground bg-transparent hover:bg-muted transition-all duration-200"
+              className="inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium text-blue hover:text-blue-dark bg-transparent hover:bg-gold/10 transition-all duration-200"
             >
               Sign In
             </Link>
             <Link
               href="/auth?mode=signup"
-              className="group inline-flex h-10 items-center rounded-lg bg-gradient-to-r from-primary to-primary-light px-5 text-sm font-medium text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+              className="group inline-flex h-10 items-center rounded-lg bg-blue px-5 text-sm font-medium text-white shadow-md hover:shadow-lg hover:bg-blue-dark transition-all duration-200 hover:-translate-y-0.5"
             >
               Get Started
               <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -169,7 +169,7 @@ const NavigationBar = () => {
           closed: { height: 0, opacity: 0 }
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-background/95 backdrop-blur-lg border-t border-border/50"
+        className="md:hidden overflow-hidden bg-cream/95 backdrop-blur-lg border-t border-gold-light/30"
       >
         <div className="container py-6">
           <div className="flex flex-col space-y-1">
@@ -186,8 +186,8 @@ const NavigationBar = () => {
                   className={cn(
                     "flex flex-col px-4 py-3 rounded-lg transition-all duration-200",
                     pathname === link.href
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground-secondary hover:bg-muted hover:text-foreground"
+                      ? "bg-gold/10 text-blue border border-gold/20"
+                      : "text-blue-dark/70 hover:bg-gold/10 hover:text-blue"
                   )}
                 >
                   <span className="font-medium">{link.label}</span>
@@ -204,14 +204,14 @@ const NavigationBar = () => {
               <Link
                 href="/auth"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3 text-center font-medium rounded-lg bg-muted hover:bg-muted/80 transition-colors"
+                className="px-4 py-3 text-center font-medium rounded-lg bg-transparent border border-blue text-blue hover:bg-blue hover:text-white transition-colors"
               >
                 Sign In
               </Link>
               <Link
                 href="/auth?mode=signup"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3 text-center font-medium rounded-lg bg-gradient-to-r from-primary to-primary-light text-primary-foreground shadow-md"
+                className="px-4 py-3 text-center font-medium rounded-lg bg-blue text-white shadow-md hover:bg-blue-dark transition-colors"
               >
                 Get Started
               </Link>

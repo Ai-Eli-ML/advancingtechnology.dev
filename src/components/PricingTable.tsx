@@ -65,7 +65,7 @@ const tiers: PricingTier[] = [
 
 const PricingTable = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-24 bg-gradient-to-b from-white to-cream/50">
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -86,13 +86,13 @@ const PricingTable = () => {
             >
               <div
                 className={cn(
-                  "relative rounded-lg border bg-card p-8 shadow-sm transition-all hover:shadow-md",
-                  tier.highlighted && "border-accent shadow-lg scale-105"
+                  "relative rounded-lg border border-gold/30 bg-cream p-8 shadow-sm transition-all hover:shadow-md hover:border-gold",
+                  tier.highlighted && "border-gold shadow-xl scale-105 bg-gradient-to-br from-cream to-gold/10"
                 )}
               >
                 {tier.highlighted && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <div className="inline-flex items-center rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
+                    <div className="inline-flex items-center rounded-full bg-gold px-3 py-1 text-xs font-semibold text-white shadow-lg">
                       <Sparkles className="mr-1 h-3 w-3" />
                       Most Popular
                     </div>
@@ -104,16 +104,16 @@ const PricingTable = () => {
                   <div className="mb-2">
                     <span className="text-4xl font-bold">{tier.price}</span>
                     {tier.price !== "Free" && tier.price !== "Contact" && (
-                      <span className="text-muted-foreground">/month</span>
+                      <span className="text-blue-dark/70">/month</span>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{tier.description}</p>
+                  <p className="text-sm text-blue-dark/70">{tier.description}</p>
                 </div>
 
                 <ul className="mb-8 space-y-3">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start">
-                      <Check className="mr-3 h-5 w-5 shrink-0 text-primary" />
+                      <Check className="mr-3 h-5 w-5 shrink-0 text-blue" />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
@@ -124,8 +124,8 @@ const PricingTable = () => {
                   className={cn(
                     "block w-full rounded-md px-4 py-3 text-center text-sm font-medium transition-colors",
                     tier.highlighted
-                      ? "bg-primary text-primary-foreground hover:opacity-90"
-                      : "bg-muted hover:bg-muted/80"
+                      ? "bg-blue text-white hover:bg-blue-dark shadow-lg"
+                      : "bg-transparent border border-blue text-blue hover:bg-blue hover:text-white"
                   )}
                 >
                   {tier.cta}
@@ -136,7 +136,7 @@ const PricingTable = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-blue-dark/70">
             All plans include a 14-day money-back guarantee. No questions asked.
           </p>
         </div>

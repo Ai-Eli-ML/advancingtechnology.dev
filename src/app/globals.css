@@ -3,48 +3,59 @@
 
 :root {
   /* Enhanced Brand Colors */
-  --primary: #3b52d4;
-  --primary-dark: #2e40a8;
-  --primary-light: #5b6fe4;
+  --primary: #3a4ab2;
+  --primary-dark: #2e3b8e;
+  --primary-light: #4d5dc5;
   --primary-foreground: #ffffff;
-  --accent: #f59e0b;
-  --accent-dark: #d97706;
-  --accent-light: #fbbf24;
-  --accent-foreground: #ffffff;
+  --accent: #d6b349;
+  --accent-dark: #b89a3e;
+  --accent-light: #e2c264;
+  --accent-foreground: #1a1a1a;
   
   /* Modern Background System */
   --background: #ffffff;
-  --background-secondary: #f8fafc;
-  --background-tertiary: #f1f5f9;
+  --background-secondary: #fffaec;
+  --background-tertiary: #fff5db;
   --foreground: #0f172a;
   --foreground-secondary: #475569;
   --foreground-tertiary: #64748b;
   
+  /* Brand Specific Colors */
+  --cream: #fffaec;
+  --cream-light: #fffef8;
+  --cream-dark: #f5efd8;
+  --gold: #d6b349;
+  --gold-light: #e2c264;
+  --gold-dark: #b89a3e;
+  --blue: #3a4ab2;
+  --blue-light: #4d5dc5;
+  --blue-dark: #2e3b8e;
+  
   /* Muted Colors */
-  --muted: #f1f5f9;
+  --muted: #fffaec;
   --muted-foreground: #64748b;
   
   /* Card System */
-  --card: #ffffff;
-  --card-hover: #f8fafc;
+  --card: #fffaec;
+  --card-hover: #fff5db;
   --card-foreground: #0f172a;
   
   /* Borders & Inputs */
-  --border: #e2e8f0;
-  --border-hover: #cbd5e1;
+  --border: #e2c264;
+  --border-hover: #d6b349;
   --input: #ffffff;
-  --input-border: #e2e8f0;
-  --input-focus: #3b52d4;
-  --ring: #3b52d4;
+  --input-border: #e2c264;
+  --input-focus: #3a4ab2;
+  --ring: #3a4ab2;
   
   /* Semantic Colors */
   --success: #10b981;
   --success-foreground: #ffffff;
-  --warning: #f59e0b;
-  --warning-foreground: #ffffff;
+  --warning: #d6b349;
+  --warning-foreground: #1a1a1a;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --info: #3b82f6;
+  --info: #3a4ab2;
   --info-foreground: #ffffff;
   
   /* Fonts */
@@ -66,40 +77,51 @@
 }
 
 .dark {
-  --primary: #5b6fe4;
-  --primary-dark: #4b5ed4;
-  --primary-light: #7b8ff4;
+  --primary: #4d5dc5;
+  --primary-dark: #3a4ab2;
+  --primary-light: #5f6fd7;
   --primary-foreground: #ffffff;
-  --accent: #fbbf24;
-  --accent-dark: #f59e0b;
-  --accent-light: #fcd34d;
+  --accent: #e2c264;
+  --accent-dark: #d6b349;
+  --accent-light: #eed27f;
   --accent-foreground: #0f172a;
   
   --background: #0f172a;
-  --background-secondary: #1e293b;
-  --background-tertiary: #334155;
+  --background-secondary: #1a1f2e;
+  --background-tertiary: #252b3b;
   --foreground: #f8fafc;
   --foreground-secondary: #e2e8f0;
   --foreground-tertiary: #cbd5e1;
   
-  --muted: #1e293b;
+  /* Brand Specific Colors - Dark */
+  --cream: #1a1f2e;
+  --cream-light: #252b3b;
+  --cream-dark: #0f172a;
+  --gold: #e2c264;
+  --gold-light: #eed27f;
+  --gold-dark: #d6b349;
+  --blue: #4d5dc5;
+  --blue-light: #5f6fd7;
+  --blue-dark: #3a4ab2;
+  
+  --muted: #1a1f2e;
   --muted-foreground: #94a3b8;
   
-  --card: #1e293b;
-  --card-hover: #334155;
+  --card: #1a1f2e;
+  --card-hover: #252b3b;
   --card-foreground: #f8fafc;
   
-  --border: #334155;
-  --border-hover: #475569;
-  --input: #1e293b;
-  --input-border: #334155;
-  --input-focus: #5b6fe4;
-  --ring: #5b6fe4;
+  --border: #3a4ab2;
+  --border-hover: #4d5dc5;
+  --input: #1a1f2e;
+  --input-border: #3a4ab2;
+  --input-focus: #4d5dc5;
+  --ring: #4d5dc5;
   
   --success: #10b981;
-  --warning: #fbbf24;
+  --warning: #e2c264;
   --destructive: #f87171;
-  --info: #60a5fa;
+  --info: #4d5dc5;
 }
 
 @theme inline {
@@ -287,6 +309,20 @@ p {
   background-clip: text;
 }
 
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .text-balance {
   text-wrap: balance;
 }
@@ -329,6 +365,7 @@ button {
   background: var(--primary);
   color: var(--primary-foreground);
   box-shadow: var(--shadow);
+  border: 1px solid transparent;
 }
 
 .btn-primary:hover {
@@ -337,15 +374,29 @@ button {
   transform: translateY(-1px);
 }
 
+.btn-accent {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  box-shadow: var(--shadow);
+  border: 1px solid transparent;
+}
+
+.btn-accent:hover {
+  background: var(--accent-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
 .btn-secondary {
-  background: var(--muted);
-  color: var(--foreground);
-  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .btn-secondary:hover {
-  background: var(--muted);
-  border-color: var(--border-hover);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
   box-shadow: var(--shadow);
 }
 
@@ -556,9 +607,27 @@ button {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
 }
 
+.gradient-cream-gold {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--gold-light) 100%);
+}
+
+.gradient-gold-cream {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--cream-light) 100%);
+}
+
+.gradient-blue-cream {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cream) 100%);
+}
+
 .gradient-mesh {
   background-image: radial-gradient(at 47% 33%, var(--primary) 0, transparent 59%),
                     radial-gradient(at 82% 65%, var(--accent) 0, transparent 55%);
+}
+
+.gradient-mesh-brand {
+  background-image: radial-gradient(at 25% 25%, var(--gold-light) 0, transparent 50%),
+                    radial-gradient(at 75% 75%, var(--blue-light) 0, transparent 50%),
+                    var(--cream);
 }
 
 /* Input Styles */
@@ -596,18 +665,27 @@ button {
 }
 
 .badge-primary {
-  background: rgba(59, 82, 212, 0.1);
+  background: rgba(58, 74, 178, 0.1);
   color: var(--primary);
+  border: 1px solid rgba(58, 74, 178, 0.2);
+}
+
+.badge-accent {
+  background: rgba(214, 179, 73, 0.1);
+  color: var(--accent-dark);
+  border: 1px solid rgba(214, 179, 73, 0.2);
 }
 
 .badge-success {
   background: rgba(16, 185, 129, 0.1);
   color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .badge-warning {
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(214, 179, 73, 0.1);
   color: var(--warning);
+  border: 1px solid rgba(214, 179, 73, 0.2);
 }
 
 /* Dividers */

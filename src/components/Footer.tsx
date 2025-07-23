@@ -52,17 +52,17 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="w-full bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
+    <footer className="w-full bg-blue-dark dark:bg-gray-900 border-t border-gold/30 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold text-gradient-gold">
                 AdvancingTechnology.Dev
               </h3>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              <p className="mt-2 text-sm text-cream/80">
                 Building the future of AI-powered development tools and marketplace for innovative plugins.
               </p>
             </div>
@@ -73,10 +73,10 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                  className="p-2 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                  <social.icon className="w-5 h-5 text-cream group-hover:text-gold transition-colors" />
                 </a>
               ))}
             </div>
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
           {/* Links Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              <h4 className="font-semibold text-cream mb-4">
                 {section.title}
               </h4>
               <ul className="space-y-2">
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] transition-colors"
+                      className="flex items-center gap-2 text-sm text-cream/70 hover:text-gold transition-colors"
                     >
                       {link.icon && <link.icon className="w-4 h-4" />}
                       {link.label}
@@ -106,13 +106,13 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Newsletter Section */}
-        <div className="py-8 border-t border-gray-200 dark:border-gray-800">
+        <div className="py-8 border-t border-gold/20">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+              <h4 className="font-semibold text-cream">
                 Stay updated with our newsletter
               </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-cream/70 mt-1">
                 Get the latest updates on new plugins and features
               </p>
             </div>
@@ -120,11 +120,11 @@ const Footer: React.FC = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent dark:bg-gray-800 dark:text-white flex-1 sm:w-64"
+                className="px-4 py-2 border border-gold/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder-cream/50 flex-1 sm:w-64"
               />
               <button
                 type="submit"
-                className="px-6 py-2 bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-dark)] transition-colors whitespace-nowrap"
+                className="px-6 py-2 bg-gold text-white rounded-lg hover:bg-gold-dark transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -133,17 +133,17 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-gray-200 dark:border-gray-800">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="py-6 border-t border-gold/20">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-cream/60">
             <p>&copy; {currentYear} AdvancingTechnology.Dev. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="/sitemap" className="hover:text-[var(--primary)] transition-colors">
+              <a href="/sitemap" className="hover:text-gold transition-colors">
                 Sitemap
               </a>
-              <a href="/accessibility" className="hover:text-[var(--primary)] transition-colors">
+              <a href="/accessibility" className="hover:text-gold transition-colors">
                 Accessibility
               </a>
-              <a href="/cookies" className="hover:text-[var(--primary)] transition-colors">
+              <a href="/cookies" className="hover:text-gold transition-colors">
                 Cookie Policy
               </a>
             </div>
