@@ -2,6 +2,7 @@
 
 ## Core Principle
 This project is developed by AI agents. All development must follow the official workflow documented in the **AI Development Guide**.
+**CRITICAL**: This is part of the larger Agentic Ecosystem - all decisions must consider ecosystem integration.
 
 ## Primary Guides
 - **AI Development Guide**: completed-docs/claude-ai-workflow-system/templates/docs/ai_workflow/AI_DEVELOPMENT_GUIDE.md
@@ -11,12 +12,20 @@ This project is developed by AI agents. All development must follow the official
 
 ## Development Standards
 
+### Code Implementation Requirements
+- **ALWAYS use Claude Code MCP** for implementing code changes to save Cursor tokens
+- **NEVER apply quick hacks or band-aid solutions** - think systematically
+- **ALWAYS consider ecosystem integration** - this is not an isolated project
+- **ASK for specifications** when building important ecosystem components
+- **USE MCP tools** (Sequential Thinking, Database inspection, etc.) before coding
+
 ### Code Quality
 - Always use TypeScript strict mode
 - Follow coding standards in the development plan
 - Implement error handling and input validation (Zod)
 - Use consistent naming conventions (camelCase, PascalCase, kebab-case as defined)
 - No direct Supabase client creation in components; use provided hooks/utilities
+- **Build bug-free applications** - no shortcuts, proper error boundaries, loading states
 
 ### Testing Requirements
 - Write unit tests for all business logic
@@ -29,16 +38,33 @@ This project is developed by AI agents. All development must follow the official
 - Document API changes and breaking modifications
 - Keep README and setup instructions current
 - Add inline comments for complex business logic
+- **Document ecosystem integration points**
 
 ### Workflow
 - Use MCP tools for analysis and planning before coding
 - Use Sequential Thinking for complex problems
 - Stop and confirm with user at each major milestone
+- **Think about the bigger picture** - how does this fit in the ecosystem?
 - Run and pass:
   - pnpm type-check
   - pnpm lint:check
   - pnpm build
   - pnpm test-rls
 - No PR may be merged to main with type/lint/build/test errors
+
+### Ecosystem Considerations
+- **Data Models**: Must align with personal-dashboard and other ecosystem projects
+- **Authentication**: Consider unified auth across ecosystem
+- **UI/UX**: Maintain consistency with ecosystem design language
+- **APIs**: Design for future ecosystem integration
+- **Performance**: Consider impact on overall ecosystem performance
+
+## Implementation Approach
+1. **Analyze First**: Use MCP tools to understand the full scope
+2. **Plan Systematically**: Create comprehensive implementation plans
+3. **Ask for Specs**: Don't assume - get clarity on ecosystem requirements
+4. **Implement via Claude Code MCP**: Save tokens and ensure quality
+5. **Test Thoroughly**: No shortcuts on testing
+6. **Document Everything**: Future ecosystem components depend on clear docs
 
 ## All other rules and processes are defined in the appropriate guide. 
