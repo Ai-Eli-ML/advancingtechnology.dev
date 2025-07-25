@@ -6,7 +6,7 @@ export const mockPlugins: Plugin[] = [
     name: "ChatGPT Code Assistant",
     tagline: "AI-powered code completion and refactoring for your IDE",
     price: 0,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=ChatGPT+Code",
+    coverImage: "/images/plugin-1.jpg",
     rating: 5,
     categories: ["Development", "AI", "Productivity"]
   },
@@ -15,7 +15,7 @@ export const mockPlugins: Plugin[] = [
     name: "LangChain Memory Pro",
     tagline: "Advanced memory management for your LangChain applications",
     price: 29,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=LangChain+Memory",
+    coverImage: "/images/plugin-2.jpg",
     rating: 4,
     categories: ["LangChain", "Memory", "Enterprise"]
   },
@@ -24,7 +24,7 @@ export const mockPlugins: Plugin[] = [
     name: "Voice Synthesis AI",
     tagline: "Natural-sounding voice generation for any application",
     price: 49,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=Voice+Synthesis",
+    coverImage: "/images/plugin-3.jpg",
     rating: 5,
     categories: ["Voice", "AI", "Media"]
   },
@@ -33,7 +33,7 @@ export const mockPlugins: Plugin[] = [
     name: "Semantic Search Engine",
     tagline: "Context-aware search powered by embeddings",
     price: 19,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=Semantic+Search",
+    coverImage: "/images/plugin-4.jpg",
     rating: 4,
     categories: ["Search", "NLP", "Database"]
   },
@@ -42,7 +42,7 @@ export const mockPlugins: Plugin[] = [
     name: "AI Content Moderator",
     tagline: "Real-time content moderation using advanced AI models",
     price: 39,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=Content+Moderator",
+    coverImage: "/images/plugin-5.jpg",
     rating: 5,
     categories: ["Moderation", "Security", "AI"]
   },
@@ -51,7 +51,7 @@ export const mockPlugins: Plugin[] = [
     name: "Workflow Automation Bot",
     tagline: "Automate repetitive tasks with intelligent workflows",
     price: 0,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=Workflow+Bot",
+    coverImage: "/images/plugin-6.jpg",
     rating: 4,
     categories: ["Automation", "Productivity", "Integration"]
   },
@@ -60,7 +60,7 @@ export const mockPlugins: Plugin[] = [
     name: "Sentiment Analysis Pro",
     tagline: "Advanced sentiment detection for customer feedback",
     price: 24,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=Sentiment+Analysis",
+    coverImage: "/images/plugin-7.jpg",
     rating: 4,
     categories: ["Analytics", "NLP", "Customer Service"]
   },
@@ -69,7 +69,7 @@ export const mockPlugins: Plugin[] = [
     name: "AI Image Enhancer",
     tagline: "Upscale and enhance images using state-of-the-art AI",
     price: 15,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=Image+Enhancer",
+    coverImage: "/images/plugin-8.jpg",
     rating: 5,
     categories: ["Image Processing", "AI", "Media"]
   },
@@ -78,7 +78,7 @@ export const mockPlugins: Plugin[] = [
     name: "Smart Data Extractor",
     tagline: "Extract structured data from any document format",
     price: 35,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=Data+Extractor",
+    coverImage: "/images/plugin-9.jpg",
     rating: 4,
     categories: ["Data Processing", "OCR", "Enterprise"]
   },
@@ -87,7 +87,7 @@ export const mockPlugins: Plugin[] = [
     name: "Real-time Translator",
     tagline: "Instant translation for 100+ languages with context awareness",
     price: 0,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=Real-time+Translator",
+    coverImage: "/images/plugin-10.jpg",
     rating: 5,
     categories: ["Translation", "NLP", "Communication"]
   },
@@ -96,7 +96,7 @@ export const mockPlugins: Plugin[] = [
     name: "AI Test Generator",
     tagline: "Automatically generate comprehensive test suites",
     price: 45,
-    coverImage: "https://via.placeholder.com/400x300/3a4ab2/ffffff?text=Test+Generator",
+    coverImage: "/images/plugin-11.jpg",
     rating: 4,
     categories: ["Testing", "Development", "QA"]
   },
@@ -105,7 +105,7 @@ export const mockPlugins: Plugin[] = [
     name: "Prompt Optimizer",
     tagline: "Optimize your AI prompts for better results",
     price: 12,
-    coverImage: "https://via.placeholder.com/400x300/d6b349/ffffff?text=Prompt+Optimizer",
+    coverImage: "/images/plugin-12.jpg",
     rating: 5,
     categories: ["AI", "Optimization", "Tools"]
   }

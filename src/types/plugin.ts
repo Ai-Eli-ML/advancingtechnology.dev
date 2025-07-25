@@ -1,5 +1,6 @@
 export interface Plugin {
   id: string;
+  slug?: string;
   name: string;
   tagline: string;
   price: number;

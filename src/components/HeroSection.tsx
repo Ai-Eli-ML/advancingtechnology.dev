@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden gradient-cream-gold">
+    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background-secondary to-background-tertiary">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/20 via-transparent to-transparent" />
@@ -25,12 +25,12 @@ const HeroSection = () => {
             className="mb-8"
           >
             <motion.div 
-              className="inline-flex items-center rounded-full border border-gold/50 bg-gradient-to-r from-cream/80 to-gold/10 backdrop-blur-sm px-4 py-2 text-sm mb-12 shadow-lg"
+              className="inline-flex items-center rounded-full border border-accent/50 bg-gradient-to-r from-card/80 to-accent/10 backdrop-blur-sm px-4 py-2 text-sm mb-12 shadow-lg"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
               <Sparkles className="mr-2 h-4 w-4 text-gold animate-pulse" />
-              <span className="font-medium text-blue-dark">Welcome to the Future of AI Development</span>
+              <span className="font-medium text-foreground">Welcome to the Future of AI Development</span>
             </motion.div>
             
             <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl mb-8">
@@ -55,17 +55,17 @@ const HeroSection = () => {
           >
             <Link
               href="/marketplace"
-              className="group relative inline-flex h-14 items-center rounded-xl bg-blue px-8 text-base font-semibold text-white shadow-xl hover:shadow-2xl hover:bg-blue-dark transition-all duration-300 hover:-translate-y-1"
+              className="group relative inline-flex h-14 items-center rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-xl hover:shadow-2xl hover:bg-primary-dark transition-all duration-300 hover:-translate-y-1"
             >
               <span className="relative z-10">Explore Marketplace</span>
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 duration-300" />
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-dark to-blue-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-dark to-primary-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
             <Link
               href="/auth?mode=signup"
-              className="group inline-flex h-14 items-center rounded-xl border-2 border-gold bg-cream/80 backdrop-blur-sm px-8 text-base font-semibold hover:bg-gold hover:text-white hover:border-gold transition-all duration-300 hover:-translate-y-1"
+              className="group inline-flex h-14 items-center rounded-xl border-2 border-accent bg-card/80 backdrop-blur-sm px-8 text-base font-semibold hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 hover:-translate-y-1"
             >
-              <Code2 className="mr-2 h-5 w-5 text-blue group-hover:text-white transition-colors" />
+              <Code2 className="mr-2 h-5 w-5 text-primary group-hover:text-accent-foreground transition-colors" />
               Start Building
             </Link>
           </motion.div>
@@ -133,10 +133,10 @@ const HeroSection = () => {
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="group relative"
               >
-                <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-cream/80 backdrop-blur-sm p-8 hover:border-gold transition-all duration-300">
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-8 hover:border-border-hover transition-all duration-300">
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-300`} />
                   <div className="relative">
-                    <div className="mb-4 inline-flex rounded-xl bg-white/80 p-3 shadow-sm">
+                    <div className="mb-4 inline-flex rounded-xl bg-background/80 p-3 shadow-sm">
                       <feature.icon className={`h-6 w-6 ${feature.iconColor}`} />
                     </div>
                     <h3 className="font-semibold text-lg mb-3">{feature.title}</h3>

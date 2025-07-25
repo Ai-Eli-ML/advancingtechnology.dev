@@ -1,20 +1,25 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
-import { Mail, Lock, User, Eye, EyeOff, Github, Chrome, Sparkles, ArrowRight, Check } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, Github, Chrome, Sparkles, ArrowRight, Check, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { createSupabaseBrowser } from "@/lib/supabase";
 
 function AuthForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const isSignUp = searchParams.get("mode") === "signup";
   const [showPassword, setShowPassword] = useState(false);
   const [showChatDrawer, setShowChatDrawer] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,10 +27,80 @@ function AuthForm() {
     confirmPassword: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setError(null);
+    setSuccess(null);
+    
+    // Validation
+    if (isSignUp && formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          name: isSignUp ? formData.name : undefined,
+          action: isSignUp ? 'signup' : 'login',
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Authentication failed');
+      }
+      
+      if (isSignUp) {
+        setSuccess(data.message || 'Account created successfully! Please check your email to verify your account.');
+        // Clear form
+        setFormData({
+          email: "",
+          password: "",
+          name: "",
+          confirmPassword: ""
+        });
+      } else {
+        // Login successful, redirect to dashboard
+        router.push('/dashboard');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const handleOAuthLogin = async (provider: 'github' | 'google') => {
+    try {
+      const supabase = createSupabaseBrowser();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      
+      if (error) {
+        setError(error.message);
+      }
+    } catch {
+      setError('Failed to initiate OAuth login');
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +114,11 @@ function AuthForm() {
     <div className="min-h-screen bg-gradient-to-b from-background via-background-secondary/20 to-background flex flex-col">
       <NavigationBar />
       
-      <main className="flex-1 flex items-center justify-center py-12 px-4 relative">
+      <main className="flex-1 flex items-center justify-center py-8 sm:py-12 px-4 relative">
         {/* Background decoration */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
         </div>
 
         <motion.div
@@ -52,7 +127,7 @@ function AuthForm() {
           transition={{ duration: 0.5 }}
           className="w-full max-w-md"
         >
-          <div className="bg-card/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-border/50 p-8 hover:shadow-3xl transition-shadow duration-300">
+          <div className="bg-card/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-border/50 p-6 sm:p-8 hover:shadow-3xl transition-shadow duration-300">
             {/* Header */}
             <div className="text-center mb-8">
               <motion.div
@@ -63,7 +138,7 @@ function AuthForm() {
               >
                 <Sparkles className="w-8 h-8 text-white" />
               </motion.div>
-              <h1 className="font-display text-3xl font-bold mb-2 text-gradient">
+              <h1 className="font-display text-2xl sm:text-3xl font-bold mb-2 text-gradient">
                 {isSignUp ? "Create Account" : "Welcome Back"}
               </h1>
               <p className="text-foreground-secondary">
@@ -78,22 +153,54 @@ function AuthForm() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group"
+                onClick={() => handleOAuthLogin('github')}
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               >
-                <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <Github className="w-5 h-5 group-hover:scale-110 transition-transform flex-shrink-0" />
                 <span className="font-medium">Continue with GitHub</span>
-                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all hidden sm:block" />
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group"
+                onClick={() => handleOAuthLogin('google')}
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               >
-                <Chrome className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <Chrome className="w-5 h-5 group-hover:scale-110 transition-transform flex-shrink-0" />
                 <span className="font-medium">Continue with Google</span>
-                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all hidden sm:block" />
               </motion.button>
             </div>
+
+            {/* Error/Success Messages */}
+            {(error || success) && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className={cn(
+                  "p-4 rounded-xl mb-6 flex items-start gap-3",
+                  error 
+                    ? "bg-destructive/10 border border-destructive/20 text-destructive" 
+                    : "bg-green-500/10 border border-green-500/20 text-green-600"
+                )}
+              >
+                {error ? (
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                <div className="text-sm font-medium">
+                  {error || success}
+                </div>
+              </motion.div>
+            )}
 
             {/* Divider */}
             <div className="relative mb-6">
@@ -124,7 +231,7 @@ function AuthForm() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="input pl-11 pr-4 py-3.5 w-full"
+                      className="input pl-10 sm:pl-11 pr-4 py-3 sm:py-3.5 w-full text-sm sm:text-base"
                       placeholder="Enter your full name"
                       required={isSignUp}
                     />
@@ -144,7 +251,7 @@ function AuthForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="input pl-11 pr-4 py-3.5 w-full"
+                    className="input pl-10 sm:pl-11 pr-4 py-3 sm:py-3.5 w-full text-sm sm:text-base"
                     placeholder="you@example.com"
                     required
                   />
@@ -170,7 +277,7 @@ function AuthForm() {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="input pl-11 pr-12 py-3.5 w-full"
+                    className="input pl-10 sm:pl-11 pr-12 py-3 sm:py-3.5 w-full text-sm sm:text-base"
                     placeholder="Enter your password"
                     required
                   />
@@ -221,7 +328,7 @@ function AuthForm() {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
+                      className="w-full pl-10 pr-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-sm sm:text-base"
                       placeholder="••••••••"
                       required={isSignUp}
                     />
@@ -241,12 +348,30 @@ function AuthForm() {
                 </div>
               )}
 
-              <button
+              <motion.button
                 type="submit"
-                className="w-full py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+                disabled={loading}
+                whileHover={{ scale: loading ? 1 : 1.02 }}
+                whileTap={{ scale: loading ? 1 : 0.98 }}
+                className={cn(
+                  "w-full py-3 sm:py-3.5 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base",
+                  loading
+                    ? "bg-primary/50 text-primary-foreground/70 cursor-not-allowed"
+                    : "bg-gradient-to-r from-primary to-primary-dark text-primary-foreground hover:shadow-lg hover:shadow-primary/25"
+                )}
               >
-                {isSignUp ? "Create Account" : "Sign In"}
-              </button>
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 sm:w-5 h-4 sm:h-5 animate-spin" />
+                    <span>{isSignUp ? "Creating account..." : "Signing in..."}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{isSignUp ? "Create Account" : "Sign In"}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </motion.button>
             </form>
 
             {/* Footer Link */}

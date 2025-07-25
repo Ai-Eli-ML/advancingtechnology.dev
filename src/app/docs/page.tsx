@@ -444,24 +444,26 @@ We appreciate responsible disclosure and will acknowledge your contribution.
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar Navigation */}
             <aside className="lg:col-span-1">
-              <nav className="sticky top-24 space-y-1">
+              <nav className="sticky top-24 space-y-1 overflow-x-auto lg:overflow-x-visible">
+                <div className="flex lg:flex-col gap-2 lg:gap-1 pb-2 lg:pb-0">
                 {docSections.map((section) => (
                   <button
                     key={section.id}
                     onClick={() => setSelectedSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${
+                    className={`flex-shrink-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 rounded-lg transition-colors text-left whitespace-nowrap text-sm lg:text-base ${
                       selectedSection === section.id
                         ? "bg-primary text-primary-foreground"
                         : "hover:bg-muted text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    <section.icon className="w-5 h-5 flex-shrink-0" />
+                    <section.icon className="w-4 lg:w-5 h-4 lg:h-5 flex-shrink-0" />
                     <span className="font-medium">{section.title}</span>
                     {selectedSection === section.id && (
-                      <ChevronRight className="w-4 h-4 ml-auto" />
+                      <ChevronRight className="w-4 h-4 ml-auto hidden lg:block" />
                     )}
                   </button>
                 ))}
+                </div>
               </nav>
             </aside>
 

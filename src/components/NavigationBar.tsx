@@ -6,25 +6,18 @@ import { usePathname } from "next/navigation";
 import { Moon, Sun, Sparkles, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    const savedTheme = localStorage.getItem("theme");
+    setMounted(true);
     
-    if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      root.classList.add("dark");
-      setIsDarkMode(true);
-    } else {
-      root.classList.remove("dark");
-      setIsDarkMode(false);
-    }
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -32,19 +25,6 @@ const NavigationBar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleDarkMode = () => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    } else {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setIsDarkMode(true);
-    }
-  };
 
   const navLinks = [
     { href: "/marketplace", label: "Marketplace", description: "Browse AI plugins" },
@@ -57,8 +37,8 @@ const NavigationBar = () => {
     <nav className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
       scrolled
-        ? "bg-cream/95 backdrop-blur-lg border-b border-gold-light/30 shadow-sm"
-        : "bg-cream/80 backdrop-blur-sm"
+        ? "bg-background/95 dark:bg-background-secondary/95 backdrop-blur-lg border-b border-border/30 shadow-sm"
+        : "bg-background/80 dark:bg-background-secondary/80 backdrop-blur-sm"
     )}>
       <div className="container flex h-20 items-center">
         <Link href="/" className="flex items-center space-x-3 group">
@@ -97,12 +77,12 @@ const NavigationBar = () => {
 
           <div className="flex items-center space-x-3">
             <button
-              onClick={toggleDarkMode}
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gold/10 transition-colors group"
               aria-label="Toggle dark mode"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue/0 to-blue/0 group-hover:from-blue/10 group-hover:to-gold/10 rounded-lg transition-all duration-300" />
-              {isDarkMode ? (
+              {mounted && theme === 'dark' ? (
                 <Sun className="h-5 w-5 relative transition-transform group-hover:rotate-90 duration-500 text-gold" />
               ) : (
                 <Moon className="h-5 w-5 relative transition-transform group-hover:-rotate-12 duration-500 text-blue" />
@@ -127,11 +107,11 @@ const NavigationBar = () => {
         {/* Mobile Menu Button */}
         <div className="flex flex-1 items-center justify-end md:hidden space-x-2">
           <button
-            onClick={toggleDarkMode}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
-            {isDarkMode ? (
+            {mounted && theme === 'dark' ? (
               <Sun className="h-5 w-5" />
             ) : (
               <Moon className="h-5 w-5" />
@@ -169,7 +149,7 @@ const NavigationBar = () => {
           closed: { height: 0, opacity: 0 }
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-cream/95 backdrop-blur-lg border-t border-gold-light/30"
+        className="md:hidden overflow-hidden bg-background/95 dark:bg-background-secondary/95 backdrop-blur-lg border-t border-border/30"
       >
         <div className="container py-6">
           <div className="flex flex-col space-y-1">

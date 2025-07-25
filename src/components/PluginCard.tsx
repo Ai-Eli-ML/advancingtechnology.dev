@@ -39,7 +39,7 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
       whileHover={{ y: -8 }}
       className="h-full"
     >
-      <Link href={`/marketplace/${plugin.id}`} className="block h-full">
+      <Link href={`/marketplace/${plugin.slug || plugin.id}`} className="block h-full">
         <div className={cn(
           "group relative h-full overflow-hidden rounded-2xl border border-gold/30 bg-cream hover:border-gold hover:shadow-2xl transition-all duration-300",
           "bg-gradient-to-b from-cream to-cream-dark/30",

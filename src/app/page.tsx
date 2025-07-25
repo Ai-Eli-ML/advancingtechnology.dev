@@ -68,7 +68,7 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-24 bg-cream/50">
+        <section className="py-24 bg-background-secondary dark:bg-background-tertiary">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -81,29 +81,29 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue text-white font-display text-2xl font-bold shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
                   1
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Browse & Discover</h3>
-                <p className="text-sm text-blue-dark/70">
+                <p className="text-sm text-foreground-secondary">
                   Explore our marketplace of AI plugins or upload your own creation.
                 </p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue text-white font-display text-2xl font-bold shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
                   2
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Integrate & Customize</h3>
-                <p className="text-sm text-blue-dark/70">
+                <p className="text-sm text-foreground-secondary">
                   Use our SDK to integrate plugins seamlessly into your workflow.
                 </p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue text-white font-display text-2xl font-bold shadow-lg">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
                   3
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Deploy & Scale</h3>
-                <p className="text-sm text-blue-dark/70">
+                <p className="text-sm text-foreground-secondary">
                   Launch with one click and scale automatically as your user base grows.
                 </p>
               </div>
@@ -114,7 +114,7 @@ export default function Home() {
         <PricingTable />
 
         {/* CTA Section */}
-        <section className="py-24 bg-gradient-to-br from-blue-dark via-blue to-blue-light text-white">
+        <section className="py-24 bg-gradient-to-br from-primary-dark via-primary to-primary-light dark:from-primary via-primary-light dark:to-primary-light text-primary-foreground">
           <div className="container text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
               Ready to Build the Future?
@@ -125,7 +125,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/auth?mode=signup"
-                className="inline-flex h-12 items-center rounded-md bg-gold px-6 text-sm font-medium text-white hover:bg-gold-dark transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="inline-flex h-12 items-center rounded-md bg-accent px-6 text-sm font-medium text-accent-foreground hover:bg-accent-dark transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Start Building for Free
               </a>

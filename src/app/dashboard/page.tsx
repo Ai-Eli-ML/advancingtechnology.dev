@@ -124,10 +124,10 @@ export default function DashboardPage() {
       <NavigationBar />
       
       <div className="flex-1 flex">
-        <Sidebar className="hidden lg:block" />
+        <Sidebar />
         
-        <main className="flex-1 bg-background-secondary/50">
-          <div className="p-6 lg:p-8">
+        <main className="flex-1 bg-background-secondary/50 lg:ml-0">
+          <div className="p-4 sm:p-6 lg:p-8">
             {/* Header */}
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
@@ -135,12 +135,13 @@ export default function DashboardPage() {
               transition={{ duration: 0.5 }}
               className="mb-8"
             >
-              <div className="flex items-center justify-between mb-2">
-                <h1 className="font-display text-4xl font-bold text-gradient">Dashboard</h1>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+                <h1 className="font-display text-3xl sm:text-4xl font-bold text-gradient">Dashboard</h1>
                 <div className="flex items-center gap-2">
-                  <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border hover:bg-muted transition-colors text-sm font-medium">
+                  <button className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-card border border-border hover:bg-muted transition-colors text-xs sm:text-sm font-medium">
                     <Calendar className="h-4 w-4" />
-                    Last 30 days
+                    <span className="hidden sm:inline">Last 30 days</span>
+                    <span className="sm:hidden">30d</span>
                   </button>
                 </div>
               </div>

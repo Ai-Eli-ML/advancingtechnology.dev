@@ -46,7 +46,7 @@ export default function BlogPage() {
       category: "AI Trends",
       tags: ["AI", "Development", "Future Tech"],
       featured: true,
-      image: "/api/placeholder/800/400"
+      image: "/blog/post-1.jpg"
     },
     {
       id: 2,
@@ -59,7 +59,7 @@ export default function BlogPage() {
       category: "Tutorials",
       tags: ["Tutorial", "Plugins", "Getting Started"],
       featured: false,
-      image: "/api/placeholder/800/400"
+      image: "/blog/post-2.jpg"
     },
     {
       id: 3,
@@ -72,7 +72,7 @@ export default function BlogPage() {
       category: "Best Practices",
       tags: ["AI Models", "Integration", "Performance"],
       featured: false,
-      image: "/api/placeholder/800/400"
+      image: "/blog/post-3.jpg"
     },
     {
       id: 4,
@@ -85,7 +85,7 @@ export default function BlogPage() {
       category: "Security",
       tags: ["Security", "Privacy", "Best Practices"],
       featured: false,
-      image: "/api/placeholder/800/400"
+      image: "/blog/post-4.jpg"
     },
     {
       id: 5,
@@ -98,7 +98,7 @@ export default function BlogPage() {
       category: "Business",
       tags: ["Business", "Success Stories", "Monetization"],
       featured: false,
-      image: "/api/placeholder/800/400"
+      image: "/blog/post-5.jpg"
     }
   ];
 

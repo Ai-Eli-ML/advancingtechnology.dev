@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createSupabaseServer } from '@/lib/supabase-server';
 
 interface AuthRequest {
   email: string;
@@ -6,15 +7,6 @@ interface AuthRequest {
   name?: string;
   action: 'login' | 'signup';
 }
-
-// Mock user data
-const mockUser = {
-  id: 'usr_demo123',
-  email: 'demo@advancingtechnology.dev',
-  name: 'Demo User',
-  role: 'developer',
-  createdAt: new Date().toISOString()
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,36 +19,51 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Simulate authentication delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    const supabase = await createSupabaseServer();
     
     if (body.action === 'signup') {
-      // Mock signup
-      return NextResponse.json({
-        user: {
-          ...mockUser,
-          email: body.email,
-          name: body.name || 'New User'
+      const { data, error } = await supabase.auth.signUp({
+        email: body.email,
+        password: body.password,
+        options: {
+          data: {
+            name: body.name || '',
+          },
+          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
         },
-        token: `demo_token_${Date.now()}`,
-        message: 'Account created successfully! This is a demo - no real account was created.'
       });
-    }
-    
-    // Mock login
-    if (body.email === 'demo@example.com' && body.password === 'demo123') {
+      
+      if (error) {
+        return NextResponse.json(
+          { error: error.message },
+          { status: 400 }
+        );
+      }
+      
       return NextResponse.json({
-        user: mockUser,
-        token: `demo_token_${Date.now()}`,
-        message: 'Login successful! Use demo@example.com / demo123 for testing.'
+        user: data.user,
+        message: 'Check your email to confirm your account',
       });
     }
     
-    // Invalid credentials
-    return NextResponse.json(
-      { error: 'Invalid email or password. Try demo@example.com / demo123' },
-      { status: 401 }
-    );
+    // Login
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: body.email,
+      password: body.password,
+    });
+    
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 401 }
+      );
+    }
+    
+    return NextResponse.json({
+      user: data.user,
+      session: data.session,
+      message: 'Login successful',
+    });
   } catch (error) {
     console.error('Auth error:', error);
     return NextResponse.json(
@@ -67,9 +74,18 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  // Mock session check
+  const supabase = await createSupabaseServer();
+  const { data: { session }, error } = await supabase.auth.getSession();
+  
+  if (error) {
+    return NextResponse.json({
+      authenticated: false,
+      error: error.message,
+    }, { status: 401 });
+  }
+  
   return NextResponse.json({
-    authenticated: false,
-    message: 'This is a demo auth endpoint. Use POST to login/signup.'
+    authenticated: !!session,
+    user: session?.user || null,
   });
 }

@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
+import { AuthProvider } from "@/components/AuthProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const metadata: Metadata = {
   title: "AdvancingTechnology.dev - AI Tools Marketplace",
@@ -51,7 +55,19 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="min-h-screen bg-background antialiased">
-        {children}
+        <ErrorBoundary>
+          <ThemeProvider>
+            <Suspense fallback={
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              </div>
+            }>
+              <AuthProvider>
+                {children}
+              </AuthProvider>
+            </Suspense>
+          </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
