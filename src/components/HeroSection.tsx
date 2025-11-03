@@ -78,10 +78,10 @@ const HeroSection = () => {
             className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-24"
           >
             {[
-              { value: "10K+", label: "Active Developers" },
-              { value: "500+", label: "AI Plugins" },
-              { value: "99.9%", label: "Uptime SLA" },
-              { value: "24/7", label: "Support" }
+              { value: "Prototype", label: "Status" },
+              { value: "Next.js 15", label: "Built With" },
+              { value: "Portfolio", label: "Showcase" },
+              { value: "2025", label: "Year" }
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
