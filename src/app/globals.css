@@ -299,7 +299,12 @@ h6 {
 }
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* Add margin only in prose/content areas */
+.prose p {
+  margin-bottom: 1.25rem;
 }
 
 .text-gradient {
@@ -446,7 +451,7 @@ button {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 .container-sm {
@@ -459,13 +464,39 @@ button {
 
 @media (min-width: 640px) {
   .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
     padding: 0 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 2.5rem;
+    padding: 0 3rem;
+  }
+}
+
+/* Section Spacing System */
+.section-spacing {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+  .section-spacing {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-spacing {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 }
 
@@ -697,7 +728,10 @@ button {
 
 /* Responsive Text */
 @media (max-width: 640px) {
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  h3 { font-size: 1.5rem; }
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.375rem; }
+  h4 { font-size: 1.25rem; }
+  h5 { font-size: 1.125rem; }
+  h6 { font-size: 1rem; }
 }

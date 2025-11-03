@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Send, X, Minimize2, Maximize2, Bot, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Message {
   id: number;
@@ -58,14 +59,14 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
       });
 
       const data = await response.json();
-      
+
       const assistantMessage: Message = {
         id: messages.length + 2,
         type: 'assistant',
         content: data.message?.content || "I'm sorry, I couldn't process your request. Please try again.",
         timestamp: new Date()
       };
-      
+
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Chat error:', error);
@@ -84,13 +85,16 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div 
-      className={`fixed bottom-4 right-4 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300 z-50 ${
-        isMinimized ? 'w-80 h-14' : 'w-96 h-[500px]'
-      }`}
+    <div
+      className={cn(
+        "fixed bottom-4 right-4 bg-card rounded-xl shadow-2xl border border-border transition-all duration-300 z-60",
+        isMinimized
+          ? 'w-80 h-14 max-w-[calc(100vw-2rem)]'
+          : 'w-96 h-[500px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)]'
+      )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] text-white rounded-t-xl">
+      <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary to-primary-dark text-primary-foreground rounded-t-xl">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
             <Bot className="w-5 h-5" />
@@ -121,7 +125,7 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
       </div>
 
       {!isMinimized && (
-        <>
+        <div className="flex flex-col" style={{ height: 'calc(100% - 4rem)' }}>
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
@@ -130,41 +134,43 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
                 className={`flex gap-3 ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.type === 'assistant' && (
-                  <div className="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <Bot className="w-4 h-4 text-primary-foreground" />
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
+                  className={cn(
+                    "max-w-[80%] rounded-lg p-3",
                     message.type === 'user'
-                      ? 'bg-[var(--primary)] text-white'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                  }`}
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-card-foreground'
+                  )}
                 >
                   <p className="text-sm">{message.content}</p>
-                  <p className={`text-xs mt-1 ${
-                    message.type === 'user' ? 'text-white/70' : 'text-gray-500 dark:text-gray-400'
-                  }`}>
+                  <p className={cn(
+                    "text-xs mt-1",
+                    message.type === 'user' ? 'text-white/70' : 'text-muted-foreground'
+                  )}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
                 {message.type === 'user' && (
-                  <div className="w-8 h-8 bg-gray-300 dark:bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="w-4 h-4 text-muted-foreground" />
                   </div>
                 )}
               </div>
             ))}
             {isTyping && (
               <div className="flex gap-3 justify-start">
-                <div className="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-primary-foreground" />
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
+                <div className="bg-muted rounded-lg p-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                    <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                    <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
                   </div>
                 </div>
               </div>
@@ -172,8 +178,8 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-            <form 
+          <div className="p-4 border-t border-border flex-shrink-0">
+            <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
@@ -185,22 +191,22 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent dark:bg-gray-800 dark:text-white"
+                className="flex-1 px-4 py-2 input"
               />
               <button
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="px-4 py-2 bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-dark)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span className="sr-only">Send</span>
               </button>
             </form>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
 };
 
-export default ChatDrawer; 
+export default ChatDrawer;

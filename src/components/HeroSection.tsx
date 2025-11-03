@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles, Code2, Layers, Palette, Zap } from "lucide-react"
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background-secondary to-background-tertiary">
+    <section className="relative overflow-hidden">
       {/* Simplified Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background-tertiary" />
@@ -15,12 +15,12 @@ const HeroSection = () => {
       <div className="container relative">
         <div className="mx-auto max-w-5xl py-32 text-center">
           <div className="mb-8">
-            <div className="inline-flex items-center rounded-full border border-accent/50 bg-card/80 px-4 py-2 text-sm mb-12">
+            <div className="inline-flex items-center rounded-full border border-accent/50 bg-card/80 px-4 py-2 text-sm mb-6">
               <Sparkles className="mr-2 h-4 w-4 text-gold" />
               <span className="font-medium text-foreground">UI/UX Design Showcase</span>
             </div>
 
-            <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl mb-8">
+            <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl mb-6">
               <span className="inline-block text-gradient-blue">Modern AI</span>
               <span className="block mt-2">Platform Design</span>
             </h1>
@@ -31,7 +31,7 @@ const HeroSection = () => {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <a
               href="https://github.com/Ai-Eli-ML"
               target="_blank"
@@ -51,7 +51,7 @@ const HeroSection = () => {
           </div>
 
           {/* Tech Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-24">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-24">
             {[
               { value: "Prototype", label: "Status" },
               { value: "Next.js 15", label: "Built With" },

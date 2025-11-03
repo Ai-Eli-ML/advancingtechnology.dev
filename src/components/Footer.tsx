@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="w-full bg-blue-dark dark:bg-gray-900 border-t border-gold/30 mt-auto">
+    <footer className="w-full flex-shrink-0 bg-blue-dark dark:bg-gray-900 border-t border-gold/30 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12">
@@ -42,10 +42,10 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
+                  className="p-4 sm:p-3 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 text-cream group-hover:text-gold transition-colors" />
+                  <social.icon className="w-6 h-6 sm:w-5 sm:h-5 text-cream group-hover:text-gold transition-colors" />
                 </a>
               ))}
             </div>

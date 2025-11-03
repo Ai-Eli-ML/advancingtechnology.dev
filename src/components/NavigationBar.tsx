@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Moon, Sun, Sparkles, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -125,8 +126,15 @@ const NavigationBar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/30">
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/30 overflow-hidden"
+          >
           <div className="container py-6">
             <div className="flex flex-col space-y-1">
               {navLinks.map((link) => (
@@ -159,8 +167,9 @@ const NavigationBar = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
