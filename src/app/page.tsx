@@ -1,16 +1,15 @@
 import NavigationBar from "@/components/NavigationBar";
 import HeroSection from "@/components/HeroSection";
 import FeatureCard from "@/components/FeatureCard";
-import PricingTable from "@/components/PricingTable";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
-import { 
-  Rocket, 
-  Shield, 
-  Globe, 
-  Cpu, 
-  Users, 
-  BarChart3 
+import {
+  Code2,
+  Palette,
+  Layers,
+  Zap,
+  Database,
+  Lock
 } from "lucide-react";
 
 export default function Home() {
@@ -19,121 +18,121 @@ export default function Home() {
       <NavigationBar />
       <main className="min-h-screen">
         <HeroSection />
-        
+
         {/* Features Section */}
         <section className="py-24">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-                Built for Modern AI Development
+                Built with Modern Technologies
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Everything you need to build, deploy, and scale AI-powered applications.
+                A showcase of current web development best practices and design patterns.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               <FeatureCard
-                icon={<Rocket className="h-6 w-6" />}
-                title="One-Click Deploy"
-                description="Deploy your AI plugins instantly with our streamlined infrastructure. No complex setup required."
+                icon={<Code2 className="h-6 w-6" />}
+                title="TypeScript"
+                description="Fully typed codebase with strict mode enabled for enhanced type safety and better developer experience."
               />
               <FeatureCard
-                icon={<Shield className="h-6 w-6" />}
-                title="Enterprise Security"
-                description="Bank-grade security with SOC2 compliance, encryption at rest, and comprehensive audit logs."
+                icon={<Layers className="h-6 w-6" />}
+                title="Next.js 15"
+                description="Latest App Router with React Server Components, server actions, and edge runtime support."
               />
               <FeatureCard
-                icon={<Globe className="h-6 w-6" />}
-                title="Global CDN"
-                description="Lightning-fast performance with edge deployment across 100+ locations worldwide."
+                icon={<Palette className="h-6 w-6" />}
+                title="Tailwind CSS v4"
+                description="Modern utility-first CSS with custom design tokens and component variants using shadcn/ui."
               />
               <FeatureCard
-                icon={<Cpu className="h-6 w-6" />}
-                title="AI-First Architecture"
-                description="Built from the ground up for AI workloads with GPU optimization and model caching."
+                icon={<Database className="h-6 w-6" />}
+                title="Supabase"
+                description="PostgreSQL database with Row Level Security, authentication, and real-time capabilities."
               />
               <FeatureCard
-                icon={<Users className="h-6 w-6" />}
-                title="Collaboration Tools"
-                description="Work seamlessly with your team. Share plugins, manage permissions, and track changes."
+                icon={<Zap className="h-6 w-6" />}
+                title="Performance"
+                description="Optimized for Core Web Vitals with automatic code splitting and image optimization."
               />
               <FeatureCard
-                icon={<BarChart3 className="h-6 w-6" />}
-                title="Advanced Analytics"
-                description="Deep insights into plugin performance, usage patterns, and user engagement metrics."
+                icon={<Lock className="h-6 w-6" />}
+                title="Security"
+                description="Rate limiting, CSRF protection, security headers, and comprehensive input validation."
               />
             </div>
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="py-24 bg-background-secondary dark:bg-background-tertiary">
+        {/* Design System Section */}
+        <section className="py-24 bg-background-secondary">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-                How It Works
+                Design System
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Get your AI tools to market in three simple steps.
+                Consistent UI patterns following modern design principles.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
-                  1
+                  <Palette className="h-8 w-8" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">Browse & Discover</h3>
+                <h3 className="font-semibold text-lg mb-2">Color System</h3>
                 <p className="text-sm text-foreground-secondary">
-                  Explore our marketplace of AI plugins or upload your own creation.
+                  Custom theme with blue and gold accents, supporting both light and dark modes.
                 </p>
               </div>
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
-                  2
+                  <Code2 className="h-8 w-8" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">Integrate & Customize</h3>
+                <h3 className="font-semibold text-lg mb-2">Components</h3>
                 <p className="text-sm text-foreground-secondary">
-                  Use our SDK to integrate plugins seamlessly into your workflow.
+                  Reusable shadcn/ui components with Radix UI primitives for accessibility.
                 </p>
               </div>
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
-                  3
+                  <Zap className="h-8 w-8" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">Deploy & Scale</h3>
+                <h3 className="font-semibold text-lg mb-2">Animations</h3>
                 <p className="text-sm text-foreground-secondary">
-                  Launch with one click and scale automatically as your user base grows.
+                  Subtle transitions with Framer Motion for enhanced user experience.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <PricingTable />
-
         {/* CTA Section */}
-        <section className="py-24 bg-gradient-to-br from-primary-dark via-primary to-primary-light dark:from-primary via-primary-light dark:to-primary-light text-primary-foreground">
+        <section className="py-24 bg-gradient-to-br from-primary via-primary to-primary-light text-primary-foreground">
           <div className="container text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-              Ready to Build the Future?
+              Interested in Working Together?
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-              Join thousands of developers building the next generation of AI-powered applications.
+              This is a portfolio showcase demonstrating modern web development capabilities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/auth?mode=signup"
-                className="inline-flex h-12 items-center rounded-md bg-accent px-6 text-sm font-medium text-accent-foreground hover:bg-accent-dark transition-all duration-200 shadow-lg hover:shadow-xl"
+                href="https://github.com/Ai-Eli-ML"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 items-center rounded-md bg-white px-6 text-sm font-medium text-primary hover:bg-white/90 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                Start Building for Free
+                View GitHub Profile
               </a>
               <a
-                href="/docs"
+                href="mailto:contact@advancingtechnology.dev"
                 className="inline-flex h-12 items-center rounded-md border border-white/30 bg-white/10 px-6 text-sm font-medium hover:bg-white/20 transition-colors backdrop-blur-sm"
               >
-                View Documentation
+                Get in Touch
               </a>
             </div>
           </div>
