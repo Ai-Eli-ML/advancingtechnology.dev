@@ -125,7 +125,7 @@ function AuthForm() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-md"
+          className="w-full max-w-lg"
         >
           <div className="bg-card/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-border/50 p-6 sm:p-8 hover:shadow-3xl transition-shadow duration-300">
             {/* Header */}

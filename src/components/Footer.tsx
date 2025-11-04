@@ -42,16 +42,16 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-4 sm:p-3 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
+                  className="p-3 md:p-4 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-6 h-6 sm:w-5 sm:h-5 text-cream group-hover:text-gold transition-colors" />
+                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-cream group-hover:text-gold transition-colors" />
                 </a>
               ))}
             </div>
 
             {/* Tech Stack Badge */}
-            <div className="flex flex-wrap justify-center gap-2 text-xs text-cream/60">
+            <div className="flex flex-wrap justify-center gap-3 text-xs text-cream/60">
               <span className="px-3 py-1 bg-white/10 rounded-full">Next.js 15</span>
               <span className="px-3 py-1 bg-white/10 rounded-full">React 19</span>
               <span className="px-3 py-1 bg-white/10 rounded-full">TypeScript</span>
