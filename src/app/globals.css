@@ -74,6 +74,22 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Z-Index Scale - Defines stacking order hierarchy across the application */
+  --z-below: -1;
+  --z-background: -10;      /* Background decorations, gradients */
+  --z-normal: 0;
+  --z-dropdown: 10;         /* Dropdown menus, popovers */
+  --z-sticky: 20;           /* Plugin badges, sticky elements */
+  --z-fab: 40;              /* Floating action buttons */
+  --z-overlay: 40;          /* Modal overlays, backdrops */
+  --z-sidebar-overlay: 45;  /* Sidebar mobile overlay */
+  --z-sidebar: 55;          /* Sidebar mobile panel */
+  --z-navigation: 60;       /* Navigation bar (top priority) */
+  --z-chat-drawer: 60;      /* Chat drawer (same as nav) */
+  --z-modal: 70;            /* Modal dialogs */
+  --z-popover: 80;          /* Popovers, tooltips */
+  --z-notification: 100;    /* Toast notifications */
 }
 
 .dark {

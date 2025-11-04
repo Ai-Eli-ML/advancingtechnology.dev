@@ -87,10 +87,10 @@ const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
   return (
     <div
       className={cn(
-        "fixed bottom-4 right-4 bg-card rounded-xl shadow-2xl border border-border transition-all duration-300 z-60",
+        "fixed bottom-4 right-4 bg-card rounded-xl shadow-2xl border border-border transition-all duration-300 z-[60]",
         isMinimized
           ? 'w-80 h-14 max-w-[calc(100vw-2rem)]'
-          : 'w-96 h-[500px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)]'
+          : 'w-96 h-[500px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-10rem)]'
       )}
     >
       {/* Header */}

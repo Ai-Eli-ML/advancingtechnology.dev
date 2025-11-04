@@ -117,8 +117,8 @@ function AuthForm() {
       <main className="flex-1 flex items-center justify-center py-8 sm:py-12 px-4 relative">
         {/* Background decoration */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+          <div className="absolute top-1/4 left-1/4 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-primary/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-accent/10 rounded-full filter blur-3xl opacity-70 animate-pulse" />
         </div>
 
         <motion.div
@@ -408,7 +408,7 @@ function AuthForm() {
       {/* Floating Chat Button */}
       <button
         onClick={() => setShowChatDrawer(true)}
-        className="fixed bottom-4 right-4 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center"
+        className="fixed bottom-20 right-4 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center z-40"
         aria-label="Open chat"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

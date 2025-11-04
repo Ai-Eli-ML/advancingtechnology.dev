@@ -126,7 +126,7 @@ export default function DashboardPage() {
       <div className="flex-1 flex">
         <Sidebar />
         
-        <main className="flex-1 bg-background-secondary/50 lg:ml-0">
+        <main className="flex-1 bg-background-secondary/50 lg:ml-72">
           <div className="p-4 sm:p-6 lg:p-8">
             {/* Header */}
             <motion.div 
@@ -162,7 +162,7 @@ export default function DashboardPage() {
                   className="relative overflow-hidden"
                 >
                   <div className="bg-card rounded-2xl border border-border p-6 hover:border-primary/30 transition-all duration-300 h-full">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-50`} />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-50 -z-10`} />
                     <div className="relative">
                       <div className="flex items-center justify-between mb-4">
                         <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg`}>
@@ -342,7 +342,7 @@ export default function DashboardPage() {
       {/* Floating Chat Button */}
       <button
         onClick={() => setShowChatDrawer(true)}
-        className="fixed bottom-4 right-4 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center z-50"
+        className="fixed bottom-20 right-4 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center z-40"
         aria-label="Open chat"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

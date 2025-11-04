@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
       {isMobile && (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="fixed top-24 left-4 z-[55] p-2 bg-card rounded-lg border border-border shadow-lg lg:hidden"
+          className="fixed top-28 left-4 z-[55] p-2 bg-card rounded-lg border border-border shadow-lg lg:hidden"
           aria-label="Toggle sidebar"
         >
           {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -87,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/50 z-[45] lg:hidden"
+            className="fixed inset-0 bg-black/50 z-[45] lg:hidden min-h-screen"
           />
         )}
       </AnimatePresence>

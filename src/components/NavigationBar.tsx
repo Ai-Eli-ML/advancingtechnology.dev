@@ -33,7 +33,7 @@ const NavigationBar = () => {
 
   return (
     <nav className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
+      "sticky top-0 z-[60] w-full transition-all duration-300",
       scrolled
         ? "bg-background/95 backdrop-blur-lg border-b border-border/30 shadow-sm"
         : "bg-background/80 backdrop-blur-sm"
@@ -133,7 +133,7 @@ const NavigationBar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/30 overflow-hidden"
+            className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/30 overflow-hidden z-[60]"
           >
           <div className="container py-6">
             <div className="flex flex-col space-y-1">

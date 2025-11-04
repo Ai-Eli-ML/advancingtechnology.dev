@@ -47,9 +47,9 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
         )}>
           {/* Premium Badge */}
           {plugin.verified && (
-            <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 rounded-full bg-gold/90 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white shadow-lg">
+            <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 rounded-full bg-gold/90 backdrop-blur-sm px-2 sm:px-3 py-1.5 text-xs font-medium text-white shadow-lg">
               <Shield className="h-3 w-3" />
-              Verified
+              <span className="hidden xs:inline">Verified</span>
             </div>
           )}
           
@@ -64,7 +64,7 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
               </>
             ) : (
               <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue/5 to-gold/5">
@@ -73,8 +73,8 @@ const PluginCard: React.FC<PluginCardProps> = ({ plugin, className, index = 0 })
             )}
             
             {/* Price Badge */}
-            <div className="absolute top-4 right-4 rounded-lg bg-white/95 backdrop-blur-md px-3 py-1.5 shadow-lg border border-gold/30">
-              <span className="font-bold text-base">
+            <div className="absolute top-4 right-4 rounded-lg bg-white/95 backdrop-blur-md px-2 sm:px-3 py-1.5 shadow-lg border border-gold/30">
+              <span className="font-bold text-sm sm:text-base">
                 {plugin.price === 0 ? (
                   <span className="text-blue">Free</span>
                 ) : (
