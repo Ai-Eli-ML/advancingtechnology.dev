@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="w-full flex-shrink-0 bg-blue-dark dark:bg-gray-900 border-t border-gold/30 mt-auto">
+    <footer className="w-full flex-shrink-0 bg-background-secondary dark:bg-background-tertiary border-t border-accent/30 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12">
@@ -24,12 +24,12 @@ const Footer: React.FC = () => {
             {/* Brand Section */}
             <div>
               <div className="flex items-center justify-center space-x-3 mb-4">
-                <Code2 className="h-8 w-8 text-gold" />
-                <h3 className="text-2xl font-bold text-gradient-gold">
+                <Code2 className="h-8 w-8 text-accent" />
+                <h3 className="text-2xl font-bold text-gradient-purple">
                   AdvancingTechnology.Dev
                 </h3>
               </div>
-              <p className="text-sm text-cream/80 max-w-md">
+              <p className="text-sm text-foreground-secondary max-w-md">
                 A portfolio showcase demonstrating modern web development with Next.js 15, TypeScript, and Tailwind CSS.
               </p>
             </div>
@@ -42,28 +42,28 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 md:p-4 bg-blue/20 rounded-lg hover:bg-gold/30 transition-all duration-200 group"
+                  className="p-3 md:p-4 bg-primary/20 rounded-lg hover:bg-accent/30 transition-all duration-200 group"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-cream group-hover:text-gold transition-colors" />
+                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-foreground group-hover:text-accent transition-colors" />
                 </a>
               ))}
             </div>
 
             {/* Tech Stack Badge */}
-            <div className="flex flex-wrap justify-center gap-3 text-xs text-cream/60">
-              <span className="px-3 py-1 bg-white/10 rounded-full">Next.js 15</span>
-              <span className="px-3 py-1 bg-white/10 rounded-full">React 19</span>
-              <span className="px-3 py-1 bg-white/10 rounded-full">TypeScript</span>
-              <span className="px-3 py-1 bg-white/10 rounded-full">Tailwind CSS</span>
-              <span className="px-3 py-1 bg-white/10 rounded-full">Supabase</span>
+            <div className="flex flex-wrap justify-center gap-3 text-xs text-foreground-tertiary">
+              <span className="px-3 py-1 bg-muted rounded-full">Next.js 15</span>
+              <span className="px-3 py-1 bg-muted rounded-full">React 19</span>
+              <span className="px-3 py-1 bg-muted rounded-full">TypeScript</span>
+              <span className="px-3 py-1 bg-muted rounded-full">Tailwind CSS</span>
+              <span className="px-3 py-1 bg-muted rounded-full">Supabase</span>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-gold/20">
-          <div className="text-center text-sm text-cream/60">
+        <div className="py-6 border-t border-accent/20">
+          <div className="text-center text-sm text-foreground-tertiary">
             <p>&copy; {currentYear} AdvancingTechnology.Dev. Built as a portfolio showcase.</p>
           </div>
         </div>

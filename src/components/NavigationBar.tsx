@@ -41,9 +41,9 @@ const NavigationBar = () => {
       <div className="container flex h-20 items-center">
         <Link href="/" className="flex items-center space-x-3 group">
           <div className="relative">
-            <Sparkles className="h-8 w-8 text-gold relative" />
+            <Sparkles className="h-8 w-8 text-accent relative" />
           </div>
-          <span className="font-display text-2xl font-bold text-gradient-blue">AT.dev</span>
+          <span className="font-display text-2xl font-bold text-gradient-purple">AT.dev</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -56,8 +56,8 @@ const NavigationBar = () => {
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
                   pathname === link.href
-                    ? "text-blue bg-gold/10"
-                    : "text-blue-dark/70 hover:text-blue hover:bg-gold/5"
+                    ? "text-primary bg-accent/10"
+                    : "text-foreground/70 hover:text-primary hover:bg-accent/5"
                 )}
               >
                 <span className="relative">{link.label}</span>
@@ -68,20 +68,20 @@ const NavigationBar = () => {
           <div className="flex items-center space-x-3">
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gold/10 transition-colors group"
+              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-accent/10 transition-colors group"
               aria-label="Toggle dark mode"
             >
               {mounted && theme === 'dark' ? (
-                <Sun className="h-5 w-5 relative transition-transform group-hover:rotate-90 duration-500 text-gold" />
+                <Sun className="h-5 w-5 relative transition-transform group-hover:rotate-90 duration-500 text-accent" />
               ) : (
-                <Moon className="h-5 w-5 relative transition-transform group-hover:-rotate-12 duration-500 text-blue" />
+                <Moon className="h-5 w-5 relative transition-transform group-hover:-rotate-12 duration-500 text-primary" />
               )}
             </button>
             <a
               href="https://github.com/Ai-Eli-ML"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium text-blue hover:text-blue-dark bg-transparent hover:bg-gold/10 transition-all duration-200"
+              className="inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium text-primary hover:text-primary-dark bg-transparent hover:bg-accent/10 transition-all duration-200"
             >
               <Github className="h-5 w-5 mr-2" />
               GitHub
@@ -145,8 +145,8 @@ const NavigationBar = () => {
                   className={cn(
                     "flex flex-col px-4 py-3 rounded-lg transition-all duration-200",
                     pathname === link.href
-                      ? "bg-gold/10 text-blue border border-gold/20"
-                      : "text-blue-dark/70 hover:bg-gold/10 hover:text-blue"
+                      ? "bg-accent/10 text-primary border border-accent/20"
+                      : "text-foreground/70 hover:bg-accent/10 hover:text-primary"
                   )}
                 >
                   <span className="font-medium">{link.label}</span>
@@ -159,7 +159,7 @@ const NavigationBar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center px-4 py-3 text-center font-medium rounded-lg bg-transparent border border-blue text-blue hover:bg-blue hover:text-white transition-colors"
+                  className="flex items-center px-4 py-3 text-center font-medium rounded-lg bg-transparent border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
                 >
                   <Github className="h-5 w-5 mr-2" />
                   View GitHub

@@ -1,3 +1,5 @@
+"use client";
+
 import NavigationBar from "@/components/NavigationBar";
 import HeroSection from "@/components/HeroSection";
 import FeatureCard from "@/components/FeatureCard";
@@ -13,6 +15,7 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+
   return (
     <>
       <NavigationBar />
@@ -20,72 +23,78 @@ export default function Home() {
         <HeroSection />
 
         {/* Features Section */}
-        <section className="py-24">
+        <section className="py-24 md:py-32">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
                 Built with Modern Technologies
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
                 A showcase of current web development best practices and design patterns.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               <FeatureCard
                 icon={<Code2 className="h-6 w-6" />}
                 title="TypeScript"
                 description="Fully typed codebase with strict mode enabled for enhanced type safety and better developer experience."
+                className="p-8 md:p-12"
               />
               <FeatureCard
                 icon={<Layers className="h-6 w-6" />}
                 title="Next.js 15"
                 description="Latest App Router with React Server Components, server actions, and edge runtime support."
+                className="p-8 md:p-12"
               />
               <FeatureCard
                 icon={<Palette className="h-6 w-6" />}
                 title="Tailwind CSS v4"
                 description="Modern utility-first CSS with custom design tokens and component variants using shadcn/ui."
+                className="p-8 md:p-12"
               />
               <FeatureCard
                 icon={<Database className="h-6 w-6" />}
                 title="Supabase"
                 description="PostgreSQL database with Row Level Security, authentication, and real-time capabilities."
+                className="p-8 md:p-12"
               />
               <FeatureCard
                 icon={<Zap className="h-6 w-6" />}
                 title="Performance"
                 description="Optimized for Core Web Vitals with automatic code splitting and image optimization."
+                className="p-8 md:p-12"
               />
               <FeatureCard
                 icon={<Lock className="h-6 w-6" />}
                 title="Security"
                 description="Rate limiting, CSRF protection, security headers, and comprehensive input validation."
+                className="p-8 md:p-12"
               />
             </div>
           </div>
         </section>
 
         {/* Design System Section */}
-        <section className="py-24 bg-background-secondary">
+        <section className="py-24 md:py-32 bg-background-secondary">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
                 Design System
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
                 Consistent UI patterns following modern design principles.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
                   <Palette className="h-8 w-8" />
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Color System</h3>
                 <p className="text-sm text-foreground-secondary">
-                  Custom theme with blue and gold accents, supporting both light and dark modes.
+                  Modern purple and coral accents creating a vibrant, professional aesthetic for both light and dark modes.
                 </p>
               </div>
               <div className="text-center">
@@ -111,7 +120,7 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 bg-gradient-to-br from-primary via-primary to-primary-light text-primary-foreground">
+        <section className="py-24 md:py-32 gradient-purple-coral text-primary-foreground">
           <div className="container text-center">
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
               Interested in Working Together?

@@ -16,7 +16,7 @@ interface ChatDrawerProps {
   onClose?: () => void;
 }
 
-const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = true, onClose }) => {
+const ChatDrawer: React.FC<ChatDrawerProps> = ({ isOpen = false, onClose }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
