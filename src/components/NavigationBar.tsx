@@ -38,8 +38,8 @@ const NavigationBar = () => {
         ? "bg-background/95 backdrop-blur-lg border-b border-border/30 shadow-sm"
         : "bg-background/80 backdrop-blur-sm"
     )}>
-      <div className="container flex h-20 items-center">
-        <Link href="/" className="flex items-center space-x-3 group">
+      <div className="container flex h-16 sm:h-20 items-center">
+        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
           <div className="relative">
             <Sparkles className="h-8 w-8 text-accent relative" />
           </div>
@@ -47,14 +47,14 @@ const NavigationBar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:ml-12">
-          <div className="flex items-center space-x-2">
+        <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:ml-8 lg:ml-12">
+          <div className="flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+                  "relative px-3 lg:px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
                   pathname === link.href
                     ? "text-primary bg-accent/10"
                     : "text-foreground/70 hover:text-primary hover:bg-accent/5"
@@ -65,10 +65,10 @@ const NavigationBar = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 lg:space-x-3">
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-accent/10 transition-colors group"
+              className="relative inline-flex h-9 w-9 lg:h-10 lg:w-10 items-center justify-center rounded-lg hover:bg-accent/10 transition-colors group"
               aria-label="Toggle dark mode"
             >
               {mounted && theme === 'dark' ? (
@@ -81,7 +81,7 @@ const NavigationBar = () => {
               href="https://github.com/Ai-Eli-ML"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center rounded-lg px-5 text-sm font-medium text-primary hover:text-primary-dark bg-transparent hover:bg-accent/10 transition-all duration-200"
+              className="inline-flex h-9 lg:h-10 items-center rounded-lg px-3 lg:px-5 text-sm font-medium text-primary hover:text-primary-dark bg-transparent hover:bg-accent/10 transition-all duration-200"
             >
               <Github className="h-5 w-5 mr-2" />
               GitHub
@@ -90,10 +90,10 @@ const NavigationBar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="flex flex-1 items-center justify-end md:hidden space-x-2">
+        <div className="flex flex-1 items-center justify-end md:hidden space-x-1.5 sm:space-x-2">
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-muted transition-colors"
+            className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle dark mode"
           >
             {mounted && theme === 'dark' ? (
@@ -104,7 +104,7 @@ const NavigationBar = () => {
           </button>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg hover:bg-muted transition-colors"
+            className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-muted transition-colors"
             aria-label="Toggle menu"
           >
             <div className="relative w-5 h-5">
@@ -135,8 +135,8 @@ const NavigationBar = () => {
             transition={{ duration: 0.2 }}
             className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/30 overflow-hidden z-[60]"
           >
-          <div className="container py-6">
-            <div className="flex flex-col space-y-1">
+          <div className="container py-4 sm:py-6">
+            <div className="flex flex-col space-y-1.5 sm:space-y-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}

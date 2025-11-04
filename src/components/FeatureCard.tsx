@@ -24,7 +24,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
       <div className="relative">
         {icon && (
-          <div className="mb-3 sm:mb-4 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <div className="mb-3 sm:mb-4 inline-flex items-center justify-center rounded-lg bg-primary/10 text-primary [&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-6 sm:[&>svg]:w-6 p-2.5 sm:p-3">
             {icon}
           </div>
         )}

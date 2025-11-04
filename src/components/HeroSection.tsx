@@ -10,12 +10,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 -z-10 gradient-mesh-brand" />
 
       <div className="container relative">
-        <div className="mx-auto max-w-5xl py-32 md:py-48 text-center">
+        <div className="mx-auto max-w-5xl py-24 sm:py-32 md:py-40 lg:py-48 text-center">
           {/* Simplified Hero Content */}
           <div className="mb-16">
             <h1 className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl mb-8">
               <span className="block text-gradient-purple">Modern AI</span>
-              <span className="block mt-2">Platform Design</span>
+              <span className="block mt-2 sm:mt-3 lg:mt-4">Platform Design</span>
             </h1>
 
             <p className="mx-auto max-w-2xl text-xl text-foreground-secondary leading-relaxed mb-12">
@@ -23,7 +23,7 @@ const HeroSection = () => {
             </p>
 
             {/* Single Clear CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <a
                 href="https://github.com/Ai-Eli-ML"
                 target="_blank"
@@ -44,7 +44,7 @@ const HeroSection = () => {
           </div>
 
           {/* Clean Tech Stack Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8" id="tech-stack">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8" id="tech-stack">
             {[
               {
                 icon: Layers,
@@ -63,7 +63,7 @@ const HeroSection = () => {
               }
             ].map((feature) => (
               <div key={feature.title} className="group relative card-hover">
-                <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 hover:border-primary transition-all duration-300">
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 md:p-8 hover:border-primary transition-all duration-300">
                   <div className="relative">
                     <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
                       <feature.icon className="h-6 w-6 text-primary" />

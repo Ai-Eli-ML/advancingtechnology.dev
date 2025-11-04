@@ -492,17 +492,30 @@ button {
 
 @media (min-width: 1024px) {
   .container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
     padding: 0 3rem;
   }
 }
 
 /* Section Spacing System */
 .section-spacing {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 @media (min-width: 640px) {
+  .section-spacing {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 768px) {
   .section-spacing {
     padding-top: 6rem;
     padding-bottom: 6rem;
@@ -513,6 +526,13 @@ button {
   .section-spacing {
     padding-top: 8rem;
     padding-bottom: 8rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-spacing {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
   }
 }
 

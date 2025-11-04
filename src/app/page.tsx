@@ -23,10 +23,10 @@ export default function Home() {
         <HeroSection />
 
         {/* Features Section */}
-        <section className="py-24 md:py-32">
+        <section className="py-16 sm:py-24 md:py-32">
           <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-3 sm:mb-4">
                 Built with Modern Technologies
               </h2>
               <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
@@ -34,7 +34,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
               <FeatureCard
                 icon={<Code2 className="h-6 w-6" />}
                 title="TypeScript"
@@ -76,10 +76,10 @@ export default function Home() {
         </section>
 
         {/* Design System Section */}
-        <section className="py-24 md:py-32 bg-background-secondary">
+        <section className="py-16 sm:py-24 md:py-32 bg-background-secondary">
           <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-3 sm:mb-4">
                 Design System
               </h2>
               <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
@@ -87,7 +87,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-lg">
                   <Palette className="h-8 w-8" />
@@ -120,14 +120,16 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 md:py-32 gradient-purple-coral text-primary-foreground">
+        <section className="py-16 sm:py-24 md:py-32 gradient-purple-coral text-primary-foreground">
           <div className="container text-center">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-              Interested in Working Together?
-            </h2>
-            <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-              This is a portfolio showcase demonstrating modern web development capabilities.
-            </p>
+            <div className="mb-8 sm:mb-12">
+              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-3 sm:mb-4">
+                Interested in Working Together?
+              </h2>
+              <p className="text-lg max-w-2xl mx-auto opacity-90">
+                This is a portfolio showcase demonstrating modern web development capabilities.
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="https://github.com/Ai-Eli-ML"
