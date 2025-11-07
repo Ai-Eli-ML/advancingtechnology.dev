@@ -1,6 +1,4 @@
 {
-  "installCommand": "pnpm install --filter=advancingtechnology.dev...",
-  "buildCommand": "cd repos/advancingtechnology.dev && pnpm build",
-  "framework": "nextjs",
-  "outputDirectory": "repos/advancingtechnology.dev/.next"
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install"
 }
