@@ -35,15 +35,16 @@ const NavigationBar = () => {
     <nav className={cn(
       "sticky top-0 z-[60] w-full transition-all duration-300",
       scrolled
-        ? "bg-background/95 backdrop-blur-lg border-b border-border/30 shadow-sm"
-        : "bg-background/80 backdrop-blur-sm"
+        ? "bg-background/60 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-primary/5"
+        : "bg-background/40 backdrop-blur-xl"
     )}>
       <div className="container flex h-16 sm:h-20 items-center">
         <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
           <div className="relative">
-            <Sparkles className="h-8 w-8 text-accent relative" />
+            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+            <Sparkles className="h-8 w-8 text-primary relative transition-transform group-hover:rotate-12 group-hover:scale-110 duration-300" />
           </div>
-          <span className="font-display text-2xl font-bold text-gradient-purple">AT.dev</span>
+          <span className="font-display text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">AT.dev</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -54,10 +55,10 @@ const NavigationBar = () => {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative px-3 lg:px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+                  "relative px-3 lg:px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300",
                   pathname === link.href
-                    ? "text-primary bg-accent/10"
-                    : "text-foreground/70 hover:text-primary hover:bg-accent/5"
+                    ? "text-primary bg-primary/10 backdrop-blur-xl border border-primary/20 shadow-lg shadow-primary/20"
+                    : "text-foreground/70 hover:text-primary hover:bg-white/5 hover:backdrop-blur-xl hover:border hover:border-white/10"
                 )}
               >
                 <span className="relative">{link.label}</span>
