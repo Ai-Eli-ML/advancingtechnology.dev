@@ -2,9 +2,11 @@
   "name": "advancingtechnology.dev",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:vercel": "pnpm install && next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
