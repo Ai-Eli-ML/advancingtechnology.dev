@@ -1,24 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
 import Sidebar from "@/components/Sidebar";
-import { 
+import {
   Plus,
   Search,
-  Filter,
-  MoreVertical,
   Download,
-  Eye,
   Edit,
   Star,
   TrendingUp,
   Calendar,
   DollarSign,
-  Package
+  Package,
+  Trash2,
+  X,
+  Save,
+  Power,
+  PowerOff
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  getMyPlugins,
+  createPlugin,
+  updatePlugin,
+  deletePlugin,
+  togglePluginStatus,
+} from "@/lib/actions/plugins";
+import { toast } from "sonner";
 
 interface Plugin {
   id: number;
@@ -30,59 +52,45 @@ interface Plugin {
   rating: number;
   lastUpdated: string;
   version: string;
+  price: number;
+  category: string;
 }
 
 export default function DashboardPluginsPage() {
   const [showChatDrawer, setShowChatDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "active" | "draft" | "pending">("all");
+  const [plugins, setPlugins] = useState<Plugin[]>([]);
 
-  const plugins: Plugin[] = [
-    {
-      id: 1,
-      name: "AI Chat Plugin",
-      description: "Advanced conversational AI with natural language processing",
-      status: "active",
-      downloads: 1234,
-      revenue: "$2,468.00",
-      rating: 4.8,
-      lastUpdated: "2 days ago",
-      version: "2.1.0"
-    },
-    {
-      id: 2,
-      name: "Voice Assistant",
-      description: "Voice-enabled AI assistant for hands-free interaction",
-      status: "active",
-      downloads: 892,
-      revenue: "$1,784.00",
-      rating: 4.9,
-      lastUpdated: "1 week ago",
-      version: "1.8.2"
-    },
-    {
-      id: 3,
-      name: "Code Generator",
-      description: "AI-powered code generation and completion tool",
-      status: "pending",
-      downloads: 567,
-      revenue: "$851.00",
-      rating: 4.6,
-      lastUpdated: "3 days ago",
-      version: "3.0.0"
-    },
-    {
-      id: 4,
-      name: "Data Analyzer",
-      description: "Machine learning-based data analysis and visualization",
-      status: "draft",
-      downloads: 0,
-      revenue: "$0.00",
-      rating: 0,
-      lastUpdated: "5 hours ago",
-      version: "0.9.0"
+  // Modal states
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPlugin, setSelectedPlugin] = useState<Plugin | null>(null);
+
+  // Form states
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    version: "1.0.0",
+    price: 0,
+    category: "AI"
+  });
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    loadPlugins();
+  }, []);
+
+  const loadPlugins = async () => {
+    const result = await getMyPlugins();
+
+    if (result.success && result.data) {
+      setPlugins(result.data);
+    } else {
+      toast.error("Failed to load plugins");
     }
-  ];
+  };
 
   const filteredPlugins = plugins.filter(plugin => {
     const matchesSearch = plugin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -90,6 +98,80 @@ export default function DashboardPluginsPage() {
     const matchesFilter = filterStatus === "all" || plugin.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
+
+  const handleCreatePlugin = async () => {
+    setSubmitting(true);
+    const result = await createPlugin(formData);
+
+    if (result.success) {
+      toast.success("Plugin created successfully");
+      setShowCreateModal(false);
+      setFormData({ name: "", description: "", version: "1.0.0", price: 0, category: "AI" });
+      loadPlugins();
+    } else {
+      toast.error(result.error || "Failed to create plugin");
+    }
+    setSubmitting(false);
+  };
+
+  const handleEditPlugin = async () => {
+    if (!selectedPlugin) return;
+
+    setSubmitting(true);
+    const result = await updatePlugin(selectedPlugin.id, formData);
+
+    if (result.success) {
+      toast.success("Plugin updated successfully");
+      setShowEditModal(false);
+      setSelectedPlugin(null);
+      setFormData({ name: "", description: "", version: "1.0.0", price: 0, category: "AI" });
+      loadPlugins();
+    } else {
+      toast.error(result.error || "Failed to update plugin");
+    }
+    setSubmitting(false);
+  };
+
+  const handleDeletePlugin = async () => {
+    if (!selectedPlugin) return;
+
+    setSubmitting(true);
+    const result = await deletePlugin(selectedPlugin.id);
+
+    if (result.success) {
+      toast.success("Plugin deleted successfully");
+      setShowDeleteModal(false);
+      setSelectedPlugin(null);
+      loadPlugins();
+    } else {
+      toast.error(result.error || "Failed to delete plugin");
+    }
+    setSubmitting(false);
+  };
+
+  const handleToggleStatus = async (plugin: Plugin) => {
+    const newStatus = plugin.status === "active" ? "draft" : "active";
+    const result = await togglePluginStatus(plugin.id, newStatus);
+
+    if (result.success) {
+      toast.success(result.message);
+      loadPlugins();
+    } else {
+      toast.error(result.error || "Failed to toggle plugin status");
+    }
+  };
+
+  const openEditModal = (plugin: Plugin) => {
+    setSelectedPlugin(plugin);
+    setFormData({
+      name: plugin.name,
+      description: plugin.description,
+      version: plugin.version,
+      price: plugin.price,
+      category: plugin.category
+    });
+    setShowEditModal(true);
+  };
 
   const getStatusColor = (status: Plugin["status"]) => {
     switch (status) {
@@ -128,30 +210,27 @@ export default function DashboardPluginsPage() {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground z-10" />
+                <Input
                   type="text"
                   placeholder="Search plugins..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
+                  className="pl-10"
                 />
               </div>
               <div className="flex gap-2">
-                <select
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value as "all" | "active" | "draft" | "pending")}
-                  className="px-4 py-3 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-background"
-                >
-                  <option value="all">All Status</option>
-                  <option value="active">Active</option>
-                  <option value="pending">Pending</option>
-                  <option value="draft">Draft</option>
-                </select>
-                <button className="px-4 py-3 border border-input rounded-lg hover:bg-muted transition-colors flex items-center gap-2">
-                  <Filter className="w-5 h-5" />
-                  <span className="hidden sm:inline">More Filters</span>
-                </button>
+                <Select value={filterStatus} onValueChange={(value: "all" | "active" | "draft" | "pending") => setFilterStatus(value)}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -206,17 +285,35 @@ export default function DashboardPluginsPage() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2">
-                      <button className="px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors flex items-center gap-2">
-                        <Eye className="w-4 h-4" />
-                        <span className="hidden sm:inline">View</span>
-                      </button>
-                      <button className="px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors flex items-center gap-2">
-                        <Edit className="w-4 h-4" />
+                      <Button variant="outline" size="sm" onClick={() => openEditModal(plugin)}>
+                        <Edit className="w-4 h-4 mr-2" />
                         <span className="hidden sm:inline">Edit</span>
-                      </button>
-                      <button className="p-2 border border-border rounded-lg hover:bg-muted transition-colors">
-                        <MoreVertical className="w-4 h-4" />
-                      </button>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleToggleStatus(plugin)}
+                        disabled={plugin.status === "pending"}
+                      >
+                        {plugin.status === "active" ? (
+                          <PowerOff className="w-4 h-4 mr-2" />
+                        ) : (
+                          <Power className="w-4 h-4 mr-2" />
+                        )}
+                        <span className="hidden sm:inline">
+                          {plugin.status === "active" ? "Unpublish" : "Publish"}
+                        </span>
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedPlugin(plugin);
+                          setShowDeleteModal(true);
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4 text-destructive" />
+                      </Button>
                     </div>
                   </div>
 
@@ -253,16 +350,181 @@ export default function DashboardPluginsPage() {
                     : "Create your first plugin to get started"}
                 </p>
                 {!searchQuery && filterStatus === "all" && (
-                  <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2 mx-auto">
-                    <Plus className="w-5 h-5" />
+                  <Button onClick={() => setShowCreateModal(true)} className="mx-auto">
+                    <Plus className="w-5 h-5 mr-2" />
                     Create Your First Plugin
-                  </button>
+                  </Button>
                 )}
               </div>
             )}
           </div>
         </main>
       </div>
+
+      {/* Create/Edit Plugin Modal */}
+      {(showCreateModal || showEditModal) && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-card rounded-xl border border-border max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-display text-2xl font-bold">
+                {showCreateModal ? "Create New Plugin" : "Edit Plugin"}
+              </h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setShowCreateModal(false);
+                  setShowEditModal(false);
+                  setSelectedPlugin(null);
+                  setFormData({ name: "", description: "", version: "1.0.0", price: 0, category: "AI" });
+                }}
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="plugin-name">Plugin Name</Label>
+                <Input
+                  id="plugin-name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Enter plugin name"
+                  className="mt-2"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="plugin-description">Description</Label>
+                <Textarea
+                  id="plugin-description"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  placeholder="Describe your plugin..."
+                  rows={4}
+                  className="mt-2"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="plugin-version">Version</Label>
+                  <Input
+                    id="plugin-version"
+                    value={formData.version}
+                    onChange={(e) => setFormData({ ...formData, version: e.target.value })}
+                    placeholder="1.0.0"
+                    className="mt-2"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="plugin-price">Price ($)</Label>
+                  <Input
+                    id="plugin-price"
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })}
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="plugin-category">Category</Label>
+                <Select
+                  value={formData.category}
+                  onValueChange={(value) => setFormData({ ...formData, category: value })}
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="AI">AI & Machine Learning</SelectItem>
+                    <SelectItem value="Development">Development Tools</SelectItem>
+                    <SelectItem value="Analytics">Analytics & Data</SelectItem>
+                    <SelectItem value="Productivity">Productivity</SelectItem>
+                    <SelectItem value="Security">Security</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => {
+                    setShowCreateModal(false);
+                    setShowEditModal(false);
+                    setSelectedPlugin(null);
+                    setFormData({ name: "", description: "", version: "1.0.0", price: 0, category: "AI" });
+                  }}
+                  disabled={submitting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="flex-1"
+                  onClick={showCreateModal ? handleCreatePlugin : handleEditPlugin}
+                  disabled={submitting || !formData.name || !formData.description}
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  {submitting ? "Saving..." : showCreateModal ? "Create Plugin" : "Save Changes"}
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && selectedPlugin && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-card rounded-xl border border-border max-w-md w-full p-6"
+          >
+            <h2 className="font-display text-2xl font-bold mb-4 text-destructive">
+              Delete Plugin
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              Are you sure you want to delete <span className="font-semibold">{selectedPlugin.name}</span>? This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setSelectedPlugin(null);
+                }}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                className="flex-1"
+                onClick={handleDeletePlugin}
+                disabled={submitting}
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                {submitting ? "Deleting..." : "Delete Plugin"}
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       <Footer />
       {showChatDrawer && <ChatDrawer onClose={() => setShowChatDrawer(false)} />}

@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { 
-  Blocks, 
-  Settings, 
-  Home, 
-  Package, 
-  FileText, 
+import {
+  Blocks,
+  Settings,
+  Home,
+  Package,
+  FileText,
   CreditCard,
   HelpCircle,
   ChevronLeft,
@@ -17,10 +18,14 @@ import {
   Bell,
   Shield,
   Menu,
-  X
+  X,
+  Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/components/AuthProvider";
+import { getUserStatistics } from "@/lib/queries/user";
+import type { UserStatistics } from "@/lib/queries/user";
 
 interface SidebarProps {
   className?: string;
@@ -28,8 +33,12 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
   const pathname = usePathname();
+  const { user, loading: authLoading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [userStats, setUserStats] = useState<UserStatistics | null>(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,24 +56,94 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
-  
-  // TODO: Replace with actual user data from Supabase auth
-  // This is mock data for development
-  const mockUser = {
-    email: "developer@example.com",
-    name: "Developer",
-    pluginCount: 3,
-    revenue: 1250
-  };
-  
+
+  // Fetch user statistics
+  useEffect(() => {
+    async function fetchUserStats() {
+      if (!user) {
+        setStatsLoading(false);
+        return;
+      }
+
+      try {
+        setStatsLoading(true);
+        setStatsError(null);
+        const stats = await getUserStatistics(user.id);
+        setUserStats(stats);
+      } catch (error) {
+        console.error('Error fetching user statistics:', error);
+        setStatsError(error instanceof Error ? error.message : 'Failed to load user data');
+        // Set default stats on error
+        setUserStats(null);
+      } finally {
+        setStatsLoading(false);
+      }
+    }
+
+    if (!authLoading) {
+      fetchUserStats();
+    }
+  }, [user, authLoading]);
+
   const navItems = [
-    { href: "/dashboard", icon: Home, label: "Overview", badge: null },
-    { href: "/dashboard/plugins", icon: Blocks, label: "My Plugins", badge: mockUser.pluginCount.toString() },
-    { href: "/dashboard/analytics", icon: BarChart3, label: "Analytics", badge: null },
-    { href: "/dashboard/purchases", icon: Package, label: "Purchases", badge: null },
-    { href: "/dashboard/billing", icon: CreditCard, label: "Billing", badge: null },
-    { href: "/dashboard/settings", icon: Settings, label: "Settings", badge: null },
+    {
+      href: "/dashboard",
+      icon: Home,
+      label: "Overview",
+      badge: null
+    },
+    {
+      href: "/dashboard/plugins",
+      icon: Blocks,
+      label: "My Plugins",
+      badge: userStats ? userStats.published_plugin_count.toString() : null
+    },
+    {
+      href: "/dashboard/analytics",
+      icon: BarChart3,
+      label: "Analytics",
+      badge: null
+    },
+    {
+      href: "/dashboard/purchases",
+      icon: Package,
+      label: "Purchases",
+      badge: null
+    },
+    {
+      href: "/dashboard/billing",
+      icon: CreditCard,
+      label: "Billing",
+      badge: null
+    },
+    {
+      href: "/dashboard/settings",
+      icon: Settings,
+      label: "Settings",
+      badge: null
+    },
   ];
+
+  // Format revenue for display
+  const formatRevenue = (revenue: number) => {
+    if (revenue >= 1000000) {
+      return `$${(revenue / 1000000).toFixed(1)}M`;
+    } else if (revenue >= 1000) {
+      return `$${(revenue / 1000).toFixed(1)}K`;
+    }
+    return `$${revenue.toFixed(0)}`;
+  };
+
+  // Get display name
+  const getDisplayName = () => {
+    if (userStats?.display_name) return userStats.display_name;
+    if (userStats?.full_name) return userStats.full_name;
+    if (user?.email) {
+      const emailName = user.email.split('@')[0];
+      return emailName.charAt(0).toUpperCase() + emailName.slice(1);
+    }
+    return 'Developer';
+  };
 
   return (
     <>
@@ -120,25 +199,69 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
           <div className="flex items-center gap-4">
             <div className="relative">
               <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-lg">
-                <User className="w-6 h-6 text-white" />
+                {statsLoading ? (
+                  <Loader2 className="w-6 h-6 text-white animate-spin" />
+                ) : userStats?.avatar_url ? (
+                  <Image
+                    src={userStats.avatar_url}
+                    alt="Profile"
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover"
+                  />
+                ) : (
+                  <User className="w-6 h-6 text-white" />
+                )}
               </div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-card" />
+              {user && (
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-card" />
+              )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate">Welcome back{mockUser.name ? `, ${mockUser.name}` : ''}</p>
-              <p className="text-xs text-muted-foreground truncate">{mockUser.email}</p>
+              {statsLoading ? (
+                <>
+                  <div className="h-4 bg-muted rounded w-24 mb-2 animate-pulse" />
+                  <div className="h-3 bg-muted rounded w-32 animate-pulse" />
+                </>
+              ) : user ? (
+                <>
+                  <p className="text-sm font-semibold truncate">
+                    Welcome back, {getDisplayName()}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                </>
+              ) : (
+                <p className="text-sm text-muted-foreground">Not signed in</p>
+              )}
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-border/50 grid grid-cols-2 gap-3">
             <div className="text-center">
-              <p className="text-lg font-bold text-primary">{mockUser.pluginCount}</p>
+              {statsLoading ? (
+                <div className="h-6 bg-muted rounded w-8 mx-auto mb-1 animate-pulse" />
+              ) : (
+                <p className="text-lg font-bold text-primary">
+                  {userStats?.published_plugin_count ?? 0}
+                </p>
+              )}
               <p className="text-xs text-muted-foreground">Plugins</p>
             </div>
             <div className="text-center">
-              <p className="text-lg font-bold text-accent">${mockUser.revenue.toLocaleString()}</p>
+              {statsLoading ? (
+                <div className="h-6 bg-muted rounded w-12 mx-auto mb-1 animate-pulse" />
+              ) : (
+                <p className="text-lg font-bold text-accent">
+                  {userStats ? formatRevenue(userStats.total_revenue) : '$0'}
+                </p>
+              )}
               <p className="text-xs text-muted-foreground">Revenue</p>
             </div>
           </div>
+          {statsError && (
+            <div className="mt-3 p-2 bg-destructive/10 border border-destructive/20 rounded text-xs text-destructive">
+              Unable to load stats
+            </div>
+          )}
         </div>
       </div>
 
@@ -185,7 +308,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
             );
           })}
         </ul>
-        
+
         {/* Quick Actions */}
         <div className="mt-8 mb-4">
           <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 mb-2">
@@ -230,4 +353,4 @@ const Sidebar: React.FC<SidebarProps> = ({ className = "" }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

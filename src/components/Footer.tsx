@@ -58,6 +58,19 @@ const Footer: React.FC = () => {
               <span className="px-3 py-1 bg-muted rounded-full">Tailwind CSS</span>
               <span className="px-3 py-1 bg-muted rounded-full">Supabase</span>
             </div>
+
+            {/* Legal Links */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-foreground-secondary">
+              <a href="/terms" className="hover:text-primary transition-colors">
+                Terms of Service
+              </a>
+              <a href="/privacy" className="hover:text-primary transition-colors">
+                Privacy Policy
+              </a>
+              <a href="/acceptable-use" className="hover:text-primary transition-colors">
+                Acceptable Use
+              </a>
+            </div>
           </div>
         </div>
 

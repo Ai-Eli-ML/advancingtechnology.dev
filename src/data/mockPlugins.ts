@@ -1,4 +1,23 @@
+/**
+ * @deprecated This file contains mock data and should NOT be used in production.
+ *
+ * Use real database queries instead:
+ * - For plugin listings: Use `src/lib/queries/plugins.ts` (to be created)
+ * - For user dashboard: Use `src/lib/queries/dashboard.ts`
+ * - For user profile: Use `src/lib/queries/user.ts`
+ *
+ * This file is kept for reference only and will be removed in a future update.
+ *
+ * Migration guide:
+ * 1. Replace imports from this file with database query functions
+ * 2. Use server components where possible for better performance
+ * 3. Implement loading states and error boundaries
+ * 4. Add proper TypeScript types from the query files
+ */
+
 import { Plugin } from "@/types/plugin";
+
+console.warn('⚠️ WARNING: mockPlugins.ts is deprecated. Use real database queries instead.');
 
 export const mockPlugins: Plugin[] = [
   {
@@ -111,26 +130,46 @@ export const mockPlugins: Plugin[] = [
   }
 ];
 
+/**
+ * @deprecated Use database query functions from src/lib/queries/plugins.ts instead
+ */
 export function getPluginById(id: string): Plugin | undefined {
+  console.warn('⚠️ getPluginById is deprecated. Use database query instead.');
   return mockPlugins.find(plugin => plugin.id === id);
 }
 
+/**
+ * @deprecated Use database query functions from src/lib/queries/plugins.ts instead
+ */
 export function getPluginsByCategory(category: string): Plugin[] {
-  return mockPlugins.filter(plugin => 
-    plugin.categories.some((cat: string) => 
+  console.warn('⚠️ getPluginsByCategory is deprecated. Use database query instead.');
+  return mockPlugins.filter(plugin =>
+    plugin.categories.some((cat: string) =>
       cat.toLowerCase() === category.toLowerCase()
     )
   );
 }
 
+/**
+ * @deprecated Use database query functions from src/lib/queries/plugins.ts instead
+ */
 export function getFeaturedPlugins(): Plugin[] {
+  console.warn('⚠️ getFeaturedPlugins is deprecated. Use database query instead.');
   return mockPlugins.filter(plugin => plugin.rating === 5).slice(0, 6);
 }
 
+/**
+ * @deprecated Use database query functions from src/lib/queries/plugins.ts instead
+ */
 export function getNewPlugins(): Plugin[] {
+  console.warn('⚠️ getNewPlugins is deprecated. Use database query instead.');
   return [...mockPlugins].reverse().slice(0, 6);
 }
 
+/**
+ * @deprecated Use database query functions from src/lib/queries/plugins.ts instead
+ */
 export function getPopularPlugins(): Plugin[] {
+  console.warn('⚠️ getPopularPlugins is deprecated. Use database query instead.');
   return mockPlugins.filter(plugin => plugin.price === 0 || plugin.rating >= 4).slice(0, 6);
 }
