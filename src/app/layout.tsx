@@ -1,11 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" }
+  ],
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://advancingtechnology.dev"),
   title: "AdvancingTechnology.dev - AI Tools Marketplace",
   description: "The flagship hub of the Agentic Ecosystem - a marketplace where developers and clients buy, sell, and collaborate on plug-and-play AI tools.",
   keywords: "AI tools, marketplace, plugins, agentic ecosystem, AI development",
@@ -37,11 +50,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
 };
 
 export default function RootLayout({
@@ -68,6 +76,8 @@ export default function RootLayout({
             </Suspense>
           </ThemeProvider>
         </ErrorBoundary>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

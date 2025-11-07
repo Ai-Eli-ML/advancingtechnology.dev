@@ -3,6 +3,7 @@
 import NavigationBar from "@/components/NavigationBar";
 import HeroSection from "@/components/HeroSection";
 import FeatureCard from "@/components/FeatureCard";
+import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import ChatDrawer from "@/components/ChatDrawer";
 import {
@@ -14,10 +15,39 @@ import {
   Lock
 } from "lucide-react";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AdvancingTechnology.dev",
+  "description": "The flagship hub of the Agentic Ecosystem - a marketplace where developers and clients buy, sell, and collaborate on plug-and-play AI tools.",
+  "url": "https://advancingtechnology.dev",
+  "publisher": {
+    "@type": "Organization",
+    "name": "AdvancingTechnology",
+    "url": "https://advancingtechnology.dev",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://advancingtechnology.dev/og-image.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://advancingtechnology.dev/marketplace?search={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
 export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <NavigationBar />
       <main className="min-h-screen">
         <HeroSection />
@@ -119,6 +149,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Contact Form Section */}
+        <ContactForm />
+
         {/* CTA Section */}
         <section className="py-16 sm:py-24 md:py-32 gradient-purple-coral text-primary-foreground">
           <div className="container text-center">
@@ -140,7 +173,7 @@ export default function Home() {
                 View GitHub Profile
               </a>
               <a
-                href="mailto:contact@advancingtechnology.dev"
+                href="#contact"
                 className="inline-flex h-12 items-center rounded-md border border-white/30 bg-white/10 px-6 text-sm font-medium hover:bg-white/20 transition-colors backdrop-blur-sm"
               >
                 Get in Touch

@@ -15,6 +15,7 @@
    - Security Tasks → `completed-docs/technical_specs/MIDDLEWARE_ARCHITECTURE.md`
    - Performance Tasks → `completed-docs/technical_specs/PERFORMANCE_OPTIMIZATION_PLAN.md`
    - UI/UX Tasks → `completed-docs/claude-ai-workflow-system/templates/docs/project_management/USER_FLOWS.md`
+   - **UI UPGRADE TASKS → `AGENT_UI_UPGRADE_INSTRUCTIONS.md` (BLOCKED - Requires GitHub repo)**
    - Email Tasks → `completed-docs/technical_specs/SMTP_SETUP_GUIDE.md`
 3. Update features-tracking.md and todos for every new task
 4. Stop and Confirm: Present analysis to user before proceeding
@@ -145,6 +146,25 @@ pnpm build         # Must succeed for deployment
 - Documentation updated
 - features-tracking.md status updated
 - User confirms completion
+
+---
+
+## 🚨 PENDING UI UPGRADE TASK
+
+**STATUS: BLOCKED - Awaiting GitHub Repository Information**
+
+There is a pending UI upgrade task that requires integration of UI patterns from an external GitHub repository. 
+See `AGENT_UI_UPGRADE_INSTRUCTIONS.md` for detailed requirements and implementation steps.
+
+**Required from user:**
+1. GitHub repository URL containing UI patterns/design system
+2. Specific UI improvement areas to focus on
+3. Priority components to update
+
+Once this information is provided, follow the workflow in `AGENT_UI_UPGRADE_INSTRUCTIONS.md` to:
+- Analyze and extract UI patterns from the repository
+- Update this CLAUDE.md with the new design guidelines
+- Systematically upgrade UI components across the project
 
 ---
 
