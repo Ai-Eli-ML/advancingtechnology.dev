@@ -1,35 +1,38 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Enhanced Brand Colors - Modern Purple/Coral Palette */
-  --primary: #6366F1;
-  --primary-dark: #5B21B6;
-  --primary-light: #818CF8;
+  /* AdvancingTechnology Brand Colors - Blue/Gold Palette */
+  --primary: #3A4AB2;
+  --primary-dark: #2A3A8F;
+  --primary-light: #4A5AC2;
   --primary-foreground: #ffffff;
-  --accent: #F97316;
-  --accent-dark: #EA580C;
-  --accent-light: #FB923C;
-  --accent-foreground: #ffffff;
+  --accent: #D6B349;
+  --accent-dark: #B8983A;
+  --accent-light: #E5C965;
+  --accent-foreground: #0A0A0A;
 
   /* Modern Background System */
-  --background: #ffffff;
-  --background-secondary: #F9FAFB;
-  --background-tertiary: #F3F4F6;
+  --background: #FFFAEC;
+  --background-secondary: #F9F6E8;
+  --background-tertiary: #F3F0E2;
   --foreground: #0A0A0A;
   --foreground-secondary: #475569;
   --foreground-tertiary: #94A3B8;
 
-  /* Brand Specific Colors - Purple/Coral/Silver */
-  --purple: #6366F1;
-  --purple-light: #818CF8;
-  --purple-dark: #5B21B6;
-  --coral: #F97316;
-  --coral-light: #FB923C;
-  --coral-dark: #EA580C;
-  --silver: #CBD5E1;
-  --silver-light: #E2E8F0;
-  --silver-dark: #94A3B8;
+  /* Brand Specific Colors - Blue/Gold/Cream */
+  --brand-blue: #3A4AB2;
+  --brand-blue-light: #4A5AC2;
+  --brand-blue-dark: #2A3A8F;
+  --brand-gold: #D6B349;
+  --brand-gold-light: #E5C965;
+  --brand-gold-dark: #B8983A;
+  --brand-cream: #FFFAEC;
+  --brand-cream-light: #FFFFF8;
+  --brand-cream-dark: #F9F6E8;
   
   /* Muted Colors */
   --muted: #F3F4F6;
@@ -93,32 +96,32 @@
 }
 
 .dark {
-  --primary: #818CF8;
-  --primary-dark: #6366F1;
-  --primary-light: #A5B4FC;
+  --primary: #4A5AC2;
+  --primary-dark: #3A4AB2;
+  --primary-light: #5A6AD2;
   --primary-foreground: #ffffff;
-  --accent: #FB923C;
-  --accent-dark: #F97316;
-  --accent-light: #FDBA74;
-  --accent-foreground: #ffffff;
+  --accent: #E5C965;
+  --accent-dark: #D6B349;
+  --accent-light: #F0D77B;
+  --accent-foreground: #0A0A0A;
 
   --background: #0A0A0A;
   --background-secondary: #171717;
   --background-tertiary: #262626;
-  --foreground: #FFFFFF;
+  --foreground: #FFFAEC;
   --foreground-secondary: #E5E5E5;
   --foreground-tertiary: #A3A3A3;
 
   /* Brand Specific Colors - Dark Mode */
-  --purple: #818CF8;
-  --purple-light: #A5B4FC;
-  --purple-dark: #6366F1;
-  --coral: #FB923C;
-  --coral-light: #FDBA74;
-  --coral-dark: #F97316;
-  --silver: #94A3B8;
-  --silver-light: #CBD5E1;
-  --silver-dark: #64748B;
+  --brand-blue: #4A5AC2;
+  --brand-blue-light: #5A6AD2;
+  --brand-blue-dark: #3A4AB2;
+  --brand-gold: #E5C965;
+  --brand-gold-light: #F0D77B;
+  --brand-gold-dark: #D6B349;
+  --brand-cream: #FFFAEC;
+  --brand-cream-light: #FFFFF8;
+  --brand-cream-dark: #F9F6E8;
   
   --muted: #262626;
   --muted-foreground: #A3A3A3;
