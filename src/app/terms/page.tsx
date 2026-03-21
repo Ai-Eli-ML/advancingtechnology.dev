@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
-  const lastUpdated = "November 6, 2025";
+  const lastUpdated = "March 21, 2026";
 
   return (
     <>
@@ -59,6 +59,7 @@ export default function TermsPage() {
                 <a href="#termination" className="block text-primary hover:underline">10. Account Termination</a>
                 <a href="#changes" className="block text-primary hover:underline">11. Changes to Terms</a>
                 <a href="#contact" className="block text-primary hover:underline">12. Contact Information</a>
+                <a href="#sms-terms" className="block text-primary hover:underline">13. SMS Notifications and Terms</a>
               </nav>
             </div>
 
@@ -280,11 +281,36 @@ export default function TermsPage() {
                 If you have questions about these Terms of Service, please contact us:
               </p>
               <div className="bg-background-secondary p-6 rounded-lg">
-                <p className="mb-2"><strong>AdvancingTechnology</strong></p>
-                <p className="mb-2">Email: <a href="mailto:legal@advancingtechnology.dev" className="text-primary hover:underline">legal@advancingtechnology.dev</a></p>
+                <p className="mb-2"><strong>Advancing Technology LLC</strong></p>
+                <p className="mb-2">Email: <a href="mailto:elijah@advancingtechnology.online" className="text-primary hover:underline">elijah@advancingtechnology.online</a></p>
                 <p className="mb-2">Website: <a href="https://advancingtechnology.dev" className="text-primary hover:underline">https://advancingtechnology.dev</a></p>
                 <p>Response time: Within 48 business hours</p>
               </div>
+            </section>
+
+            {/* Section 13 */}
+            <section id="sms-terms" className="card mb-6">
+              <h2 className="text-2xl font-bold mb-4">13. SMS Notifications and Terms</h2>
+              <h3 className="text-xl font-semibold mb-3">Consent to Receive SMS</h3>
+              <p className="mb-4">
+                By using our services or signing up for our platform, you may receive automated SMS notifications including service alerts, appointment reminders, and account updates. Message and data rates may apply. Message frequency varies based on your account activity and notification preferences.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">Opting Out</h3>
+              <p className="mb-4">
+                You may opt out of receiving SMS notifications at any time by replying <strong>STOP</strong> to any message you receive from us. After opting out, you will receive a confirmation message and will no longer receive SMS notifications from us. You may opt back in at any time by updating your notification preferences in your account settings.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">Help and Support</h3>
+              <p className="mb-4">
+                For assistance with SMS notifications, reply <strong>HELP</strong> to any message you receive from us, or contact us at <a href="mailto:elijah@advancingtechnology.online" className="text-primary hover:underline">elijah@advancingtechnology.online</a>.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">Supported Carriers</h3>
+              <p className="mb-4">
+                SMS notifications are supported on all major U.S. carriers. Carriers are not liable for delayed or undelivered messages.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">Privacy</h3>
+              <p>
+                Your phone number and SMS opt-in data will not be shared with third parties for marketing purposes. For more information, see our <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>.
+              </p>
             </section>
 
             {/* Acceptance */}

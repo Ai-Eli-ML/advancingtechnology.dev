@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  const lastUpdated = "November 6, 2025";
+  const lastUpdated = "March 21, 2026";
 
   return (
     <>
@@ -59,6 +59,7 @@ export default function PrivacyPage() {
                 <a href="#international-transfers" className="block text-primary hover:underline">10. International Data Transfers</a>
                 <a href="#policy-changes" className="block text-primary hover:underline">11. Changes to This Policy</a>
                 <a href="#contact-privacy" className="block text-primary hover:underline">12. Contact Us</a>
+                <a href="#sms-privacy" className="block text-primary hover:underline">13. SMS Data and Communications</a>
               </nav>
             </div>
 
@@ -319,12 +320,33 @@ export default function PrivacyPage() {
                 If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
               </p>
               <div className="bg-background-secondary p-6 rounded-lg">
-                <p className="mb-2"><strong>AdvancingTechnology - Privacy Team</strong></p>
+                <p className="mb-2"><strong>Advancing Technology LLC - Privacy Team</strong></p>
                 <p className="mb-2">Email: <a href="mailto:privacy@advancingtechnology.dev" className="text-primary hover:underline">privacy@advancingtechnology.dev</a></p>
                 <p className="mb-2">Security Issues: <a href="mailto:security@advancingtechnology.dev" className="text-primary hover:underline">security@advancingtechnology.dev</a></p>
                 <p className="mb-2">Website: <a href="https://advancingtechnology.dev" className="text-primary hover:underline">https://advancingtechnology.dev</a></p>
                 <p>Response time: Within 48 business hours</p>
               </div>
+            </section>
+
+            {/* Section 13 */}
+            <section id="sms-privacy" className="card mb-6">
+              <h2 className="text-2xl font-bold mb-4">13. SMS Data and Communications</h2>
+              <h3 className="text-xl font-semibold mb-3">Phone Number Collection</h3>
+              <p className="mb-4">
+                We may collect your phone number to send service-related SMS notifications, including service alerts, appointment reminders, and account updates. Your phone number is stored securely and is used solely for communication purposes related to our services.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">SMS Data Sharing</h3>
+              <p className="mb-4">
+                We do not share your phone number with third parties for marketing purposes. Your phone number may be shared with our SMS service provider solely for the purpose of delivering messages to you. Our SMS service provider is contractually obligated to protect your data and may not use it for any other purpose.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">SMS Opt-In and Opt-Out</h3>
+              <p className="mb-4">
+                You may opt out of SMS communications at any time by replying <strong>STOP</strong> to any message. You may also manage your SMS preferences in your account settings. Opting out of SMS will not affect your ability to use the Platform. For help, reply <strong>HELP</strong> to any message or contact us at <a href="mailto:elijah@advancingtechnology.online" className="text-primary hover:underline">elijah@advancingtechnology.online</a>.
+              </p>
+              <h3 className="text-xl font-semibold mb-3">SMS Data Retention</h3>
+              <p>
+                Your phone number is retained while your account is active. Upon account deletion, your phone number and SMS opt-in data will be deleted within 30 days.
+              </p>
             </section>
 
             {/* Consent */}

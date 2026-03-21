@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   const socialLinks = [
     { href: "https://github.com/Ai-Eli-ML", icon: Github, label: "GitHub" },
     { href: "https://linkedin.com/in/elijahbrown", icon: Linkedin, label: "LinkedIn" },
-    { href: "mailto:contact@advancingtechnology.dev", icon: Mail, label: "Email" },
+    { href: "mailto:elijah@advancingtechnology.online", icon: Mail, label: "Email" },
   ];
 
   return (
@@ -32,9 +32,20 @@ const Footer: React.FC = () => {
                   AdvancingTechnology.Dev
                 </h3>
               </div>
+              <p className="text-sm font-medium text-foreground-secondary">
+                Advancing Technology LLC
+              </p>
               <p className="text-sm text-foreground-secondary max-w-md">
                 A portfolio showcase demonstrating modern web development with Next.js 15, TypeScript, and Tailwind CSS.
               </p>
+            </div>
+
+            {/* Contact Information */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-foreground-secondary">
+              <a href="mailto:elijah@advancingtechnology.online" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                <Mail className="w-4 h-4" />
+                elijah@advancingtechnology.online
+              </a>
             </div>
 
             {/* Social Links */}
@@ -80,7 +91,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="py-4 sm:py-6 border-t border-accent/20">
           <div className="text-center text-sm text-foreground-tertiary">
-            <p>&copy; {currentYear} AdvancingTechnology.Dev. Built as a portfolio showcase.</p>
+            <p>&copy; {currentYear} Advancing Technology LLC. All rights reserved.</p>
           </div>
         </div>
       </div>
