@@ -44,38 +44,27 @@ function AuthForm() {
     }
     
     setLoading(true);
-    
+
     try {
-      const response = await fetch('/api/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const supabase = createSupabaseBrowser();
+
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
-          name: isSignUp ? formData.name : undefined,
-          action: isSignUp ? 'signup' : 'login',
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Authentication failed');
-      }
-      
-      if (isSignUp) {
-        setSuccess(data.message || 'Account created successfully! Please check your email to verify your account.');
-        // Clear form
-        setFormData({
-          email: "",
-          password: "",
-          name: "",
-          confirmPassword: ""
+          options: {
+            data: { name: formData.name || '' },
+          },
         });
+        if (error) throw error;
+        setSuccess('Account created! Check your email to verify, or try signing in.');
+        setFormData({ email: "", password: "", name: "", confirmPassword: "" });
       } else {
-        // Login successful, redirect to dashboard
+        const { error } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+        if (error) throw error;
         router.push('/dashboard');
       }
     } catch (err) {
@@ -148,32 +137,6 @@ function AuthForm() {
               </p>
             </div>
 
-            {/* OAuth Buttons */}
-            <div className="space-y-3 mb-6">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleOAuthLogin('github')}
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-              >
-                <Github className="w-5 h-5 group-hover:scale-110 transition-transform flex-shrink-0" />
-                <span className="font-medium">Continue with GitHub</span>
-                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all hidden sm:block" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleOAuthLogin('google')}
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-3.5 border border-border rounded-xl hover:bg-muted hover:border-primary/30 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-              >
-                <Chrome className="w-5 h-5 group-hover:scale-110 transition-transform flex-shrink-0" />
-                <span className="font-medium">Continue with Google</span>
-                <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all hidden sm:block" />
-              </motion.button>
-            </div>
-
             {/* Error/Success Messages */}
             {(error || success) && (
               <motion.div
@@ -203,14 +166,6 @@ function AuthForm() {
             )}
 
             {/* Divider */}
-            <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border/50"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-card/80 backdrop-blur-sm text-muted-foreground rounded-full">Or continue with email</span>
-              </div>
-            </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">

@@ -1,9 +1,9 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createServerClient } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
 
-// Middleware client for edge runtime
+// Middleware client for route protection
 export function createSupabaseMiddleware(req: NextRequest, res: NextResponse) {
-  return createBrowserClient(
+  return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -12,8 +12,8 @@ export function createSupabaseMiddleware(req: NextRequest, res: NextResponse) {
           return req.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            res.cookies.set(name, value)
+          cookiesToSet.forEach(({ name, value, options }) =>
+            res.cookies.set(name, value, options)
           )
         },
       },

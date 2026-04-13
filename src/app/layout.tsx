@@ -19,36 +19,22 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://advancingtechnology.dev"),
-  title: "AdvancingTechnology.dev - AI Tools Marketplace",
-  description: "The flagship hub of the Agentic Ecosystem - a marketplace where developers and clients buy, sell, and collaborate on plug-and-play AI tools.",
-  keywords: "AI tools, marketplace, plugins, agentic ecosystem, AI development",
-  authors: [{ name: "Sxilent" }],
-  creator: "Sxilent",
+  title: "Advancing Technology — Contractor Portal",
+  description: "Task management, daily reporting, and collaboration for Advancing Technology contractors.",
+  keywords: "contractor portal, task management, advancing technology",
+  authors: [{ name: "Advancing Technology LLC" }],
+  creator: "Advancing Technology LLC",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://advancingtechnology.dev",
-    siteName: "AdvancingTechnology.dev",
-    title: "AdvancingTechnology.dev - AI Tools Marketplace",
-    description: "The flagship hub of the Agentic Ecosystem - a marketplace where developers and clients buy, sell, and collaborate on plug-and-play AI tools.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "AdvancingTechnology.dev"
-      }
-    ]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "AdvancingTechnology.dev - AI Tools Marketplace",
-    description: "The flagship hub of the Agentic Ecosystem - a marketplace where developers and clients buy, sell, and collaborate on plug-and-play AI tools.",
-    images: ["/og-image.png"],
+    siteName: "AT Contractor Portal",
+    title: "Advancing Technology — Contractor Portal",
+    description: "Task management, daily reporting, and collaboration for Advancing Technology contractors.",
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 

@@ -1,17 +1,16 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
 // Server client for server-side usage (App Router)
 export async function createSupabaseServer() {
   const cookieStore = await cookies()
-  
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  // During build time, use placeholder values
   if (!supabaseUrl || !supabaseAnonKey) {
-    return createBrowserClient(
+    return createServerClient(
       'https://placeholder.supabase.co',
       'placeholder-anon-key',
       {
@@ -25,9 +24,7 @@ export async function createSupabaseServer() {
                 cookieStore.set(name, value, options)
               })
             } catch {
-              // The `set` method was called from a Server Component.
-              // This can be ignored if you have middleware refreshing
-              // user sessions.
+              // Called from Server Component — safe to ignore with middleware refreshing sessions
             }
           },
         },
@@ -35,7 +32,7 @@ export async function createSupabaseServer() {
     )
   }
 
-  return createBrowserClient(
+  return createServerClient(
     supabaseUrl,
     supabaseAnonKey,
     {
@@ -49,9 +46,7 @@ export async function createSupabaseServer() {
               cookieStore.set(name, value, options)
             })
           } catch {
-            // The `set` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            // Called from Server Component — safe to ignore with middleware refreshing sessions
           }
         },
       },

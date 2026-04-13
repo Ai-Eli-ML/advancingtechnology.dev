@@ -8,8 +8,16 @@ const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === 'true'
 // Define protected routes
 const protectedRoutes = [
   '/dashboard',
+  '/tasks',
+  '/eod',
+  '/documents',
   '/profile',
   '/settings',
+  '/admin',
+]
+
+// Admin-only routes
+const adminRoutes = [
   '/admin',
 ]
 
@@ -52,11 +60,22 @@ export async function middleware(req: NextRequest) {
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
     const isAuthRoute = authRoutes.some(route => pathname.startsWith(route))
 
+    // Check if route is admin-only
+    const isAdminRoute = adminRoutes.some(route => pathname.startsWith(route))
+
     // Redirect to auth if accessing protected route without session
     if (isProtectedRoute && !session) {
       const redirectUrl = new URL('/auth', req.url)
       redirectUrl.searchParams.set('redirect', pathname)
       return NextResponse.redirect(redirectUrl)
+    }
+
+    // Block non-admin users from admin routes
+    if (isAdminRoute && session) {
+      const role = session.user.user_metadata?.role
+      if (role !== 'admin') {
+        return NextResponse.redirect(new URL('/dashboard', req.url))
+      }
     }
 
     // Redirect to dashboard if accessing auth routes with active session
