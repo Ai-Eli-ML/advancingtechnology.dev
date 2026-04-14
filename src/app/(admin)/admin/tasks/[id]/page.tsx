@@ -56,6 +56,30 @@ export default function AdminTaskReviewPage() {
         setTask(t)
         setSubmissions(subs || [])
         setReviewNotes('')
+
+        // Send notifications (fire-and-forget)
+        const sub = submissions.find(s => s.id === submissionId)
+        if (sub) {
+          const { createSupabaseBrowser } = await import('@/lib/supabase')
+          const supabase = createSupabaseBrowser()
+          const { data: profile } = await supabase
+            .from('contractor_profiles')
+            .select('discord_id, email')
+            .eq('id', sub.submitted_by)
+            .maybeSingle()
+
+          fetch('/api/notify-review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              taskTitle: task?.title,
+              decision,
+              notes: reviewNotes.trim() || null,
+              contractorDiscordId: profile?.discord_id,
+              contractorEmail: profile?.email,
+            }),
+          }).catch(() => {})
+        }
       } else {
         setResult({ type: 'error', msg: res?.error || 'Failed' })
       }
