@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { getTaskById, getTaskSubmissions, claimTask, submitTaskProof } from '@/lib/queries/tasks'
 import { cn } from '@/lib/utils'
-import { ArrowLeft, Send, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Send, ExternalLink, Plus, X } from 'lucide-react'
 import Link from 'next/link'
 
 function getLoomEmbedUrl(url: string): string | null {
@@ -19,7 +19,7 @@ export default function TaskDetailPage() {
   const [task, setTask] = useState<any>(null)
   const [submissions, setSubmissions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [proofUrl, setProofUrl] = useState('')
+  const [proofLinks, setProofLinks] = useState<string[]>([''])
   const [proofText, setProofText] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [claiming, setClaiming] = useState(false)
@@ -68,19 +68,38 @@ export default function TaskDetailPage() {
     }
   }
 
+  function addLinkField() {
+    setProofLinks([...proofLinks, ''])
+  }
+
+  function updateLink(index: number, value: string) {
+    const updated = [...proofLinks]
+    updated[index] = value
+    setProofLinks(updated)
+  }
+
+  function removeLink(index: number) {
+    if (proofLinks.length <= 1) return
+    setProofLinks(proofLinks.filter((_, i) => i !== index))
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!user || !proofUrl.trim()) return
+    const validLinks = proofLinks.map(l => l.trim()).filter(Boolean)
+    if (!user || validLinks.length === 0) return
     setSubmitting(true)
     setError('')
     try {
-      const result = await submitTaskProof(taskId, user.id, proofUrl.trim(), proofText.trim() || undefined)
+      const mainUrl = validLinks[0]
+      const allLinks = validLinks.length > 1
+        ? `${proofText.trim()}\n\nLinks:\n${validLinks.map((l, i) => `${i + 1}. ${l}`).join('\n')}`
+        : proofText.trim() || undefined
+      const result = await submitTaskProof(taskId, user.id, mainUrl, validLinks.length > 1 ? allLinks : (proofText.trim() || undefined))
       if (result?.success) {
         setSuccess(`Submitted! (Version ${result.version})`)
         setTask({ ...task, status: 'submitted' })
-        setProofUrl('')
+        setProofLinks([''])
         setProofText('')
-        // Refresh submissions
         const subs = await getTaskSubmissions(taskId)
         setSubmissions(subs || [])
       } else {
@@ -151,16 +170,31 @@ export default function TaskDetailPage() {
           <h2 className="text-lg font-semibold mb-4">Submit Proof of Work</h2>
           <div className="space-y-4">
             <div>
-              <label htmlFor="proof-url" className="block text-sm font-medium mb-1">Loom / Proof URL *</label>
-              <input
-                id="proof-url"
-                type="url"
-                value={proofUrl}
-                onChange={e => setProofUrl(e.target.value)}
-                placeholder="https://www.loom.com/share/..."
-                required
-                className="w-full px-3 py-2 border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
+              <label className="block text-sm font-medium mb-1">Links (Google Sheet, Loom, etc.) *</label>
+              <div className="space-y-2">
+                {proofLinks.map((link, i) => (
+                  <div key={i} className="flex gap-2">
+                    <input
+                      type="url"
+                      value={link}
+                      onChange={e => updateLink(i, e.target.value)}
+                      placeholder={i === 0 ? "https://docs.google.com/... or https://www.loom.com/share/..." : "Add another link..."}
+                      required={i === 0}
+                      className="flex-1 px-3 py-2 border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                    {proofLinks.length > 1 && (
+                      <button type="button" onClick={() => removeLink(i)}
+                        className="p-2 text-muted-foreground hover:text-destructive">
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button type="button" onClick={addLinkField}
+                  className="flex items-center gap-1 text-sm text-primary hover:underline">
+                  <Plus className="w-3 h-3" /> Add another link
+                </button>
+              </div>
             </div>
             <div>
               <label htmlFor="proof-text" className="block text-sm font-medium mb-1">Notes (optional)</label>
@@ -173,20 +207,18 @@ export default function TaskDetailPage() {
                 className="w-full px-3 py-2 border rounded-lg bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
               />
             </div>
-            {proofUrl && getLoomEmbedUrl(proofUrl) && (
-              <div className="rounded-lg overflow-hidden border">
-                <iframe
-                  src={getLoomEmbedUrl(proofUrl)!}
-                  title="Loom video preview"
-                  className="w-full aspect-video"
-                  allowFullScreen
-                />
-              </div>
-            )}
-            <button type="submit" disabled={submitting || !proofUrl.trim()}
+            {proofLinks.filter(l => l.trim()).map((link, i) => {
+              const embed = getLoomEmbedUrl(link)
+              return embed ? (
+                <div key={i} className="rounded-lg overflow-hidden border">
+                  <iframe src={embed} title={`Loom preview ${i + 1}`} className="w-full aspect-video" allowFullScreen />
+                </div>
+              ) : null
+            })}
+            <button type="submit" disabled={submitting || !proofLinks[0]?.trim()}
               className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 disabled:opacity-50">
               <Send className="w-4 h-4" />
-              {submitting ? 'Submitting...' : 'Submit'}
+              {submitting ? 'Submitting...' : `Submit (${proofLinks.filter(l => l.trim()).length} link${proofLinks.filter(l => l.trim()).length !== 1 ? 's' : ''})`}
             </button>
           </div>
         </form>

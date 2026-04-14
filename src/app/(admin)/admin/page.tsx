@@ -90,7 +90,8 @@ export default function AdminDashboardPage() {
         ) : (
           <div className="space-y-2">
             {activity.slice(0, 10).map(a => (
-              <div key={a.id} className="flex items-center gap-3 p-3 border rounded-lg text-sm">
+              <Link key={a.id} href={`/admin/tasks/${a.bounty_id}`}
+                className="flex items-center gap-3 p-3 border rounded-lg text-sm hover:bg-muted/50 transition-colors">
                 <span className={`px-2 py-0.5 rounded text-xs ${
                   a.action === 'approved' ? 'bg-green-500/10 text-green-500' :
                   a.action === 'rejected' ? 'bg-red-500/10 text-red-500' :
@@ -100,7 +101,7 @@ export default function AdminDashboardPage() {
                 }`}>{a.action}</span>
                 <span className="flex-1 truncate">{a.bounties?.title || 'Task'}</span>
                 <span className="text-muted-foreground text-xs">{new Date(a.created_at).toLocaleDateString()}</span>
-              </div>
+              </Link>
             ))}
           </div>
         )}

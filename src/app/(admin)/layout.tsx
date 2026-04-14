@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
-  LayoutDashboard, Users, ListTodo, ClipboardCheck, LogOut, ChevronLeft, Menu, X, Shield
+  LayoutDashboard, Users, ListTodo, ClipboardCheck, LogOut, ChevronLeft, Menu, X, Shield, MessageSquare
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -14,6 +14,7 @@ const adminNav = [
   { href: '/admin/contractors', icon: Users, label: 'Contractors' },
   { href: '/admin/tasks', icon: ListTodo, label: 'Tasks' },
   { href: '/admin/eod-reports', icon: ClipboardCheck, label: 'EOD Reports' },
+  { href: '/admin/bot-conversations', icon: MessageSquare, label: 'Bot Convos' },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
