@@ -57,14 +57,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // Check active session
+    // Check active session — never block the UI on the profile fetch.
     const checkSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession()
         setSession(session)
         setUser(session?.user ?? null)
         if (session?.user) {
-          await loadProfile(session.user.id)
+          // Fire-and-forget; isAdmin falls back to user_metadata until profile lands
+          loadProfile(session.user.id)
         } else {
           setProfile(null)
         }
@@ -84,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(session)
       setUser(session?.user ?? null)
       if (session?.user) {
-        await loadProfile(session.user.id)
+        loadProfile(session.user.id)
       } else {
         setProfile(null)
       }
