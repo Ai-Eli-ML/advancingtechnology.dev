@@ -5,9 +5,20 @@ import { User, Session } from '@supabase/supabase-js'
 import { createSupabaseBrowser } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 
+interface ContractorProfile {
+  id: string
+  full_name: string | null
+  email: string | null
+  role: string | null
+  status: string | null
+  discord_id: string | null
+}
+
 interface AuthContextType {
   user: User | null
   session: Session | null
+  profile: ContractorProfile | null
+  isAdmin: boolean
   loading: boolean
   signOut: () => Promise<void>
   refreshSession: () => Promise<void>
@@ -18,6 +29,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [session, setSession] = useState<Session | null>(null)
+  const [profile, setProfile] = useState<ContractorProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -31,12 +43,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return
     }
 
+    const loadProfile = async (userId: string) => {
+      try {
+        const { data } = await supabase
+          .from('contractor_profiles')
+          .select('id, full_name, email, role, status, discord_id')
+          .eq('id', userId)
+          .maybeSingle()
+        setProfile((data as ContractorProfile) ?? null)
+      } catch (error) {
+        console.error('Error loading contractor profile:', error)
+        setProfile(null)
+      }
+    }
+
     // Check active session
     const checkSession = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession()
         setSession(session)
         setUser(session?.user ?? null)
+        if (session?.user) {
+          await loadProfile(session.user.id)
+        } else {
+          setProfile(null)
+        }
       } catch (error) {
         console.error('Error checking session:', error)
       } finally {
@@ -52,6 +83,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
+      if (session?.user) {
+        await loadProfile(session.user.id)
+      } else {
+        setProfile(null)
+      }
       setLoading(false)
 
       // Handle specific auth events
@@ -78,11 +114,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true)
       const { error } = await supabase.auth.signOut()
       if (error) throw error
-      
+
       // Clear local state
       setUser(null)
       setSession(null)
-      
+      setProfile(null)
+
       // Redirect to auth page
       router.push('/auth')
     } catch (error) {
@@ -107,9 +144,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  // Admin = contractor_profiles.role OR legacy auth.user_metadata.role
+  // Covers consolidated accounts that may lack a profile row
+  const isAdmin =
+    profile?.role === 'admin' ||
+    (user?.user_metadata as { role?: string } | undefined)?.role === 'admin'
+
   const value: AuthContextType = {
     user,
     session,
+    profile,
+    isAdmin,
     loading,
     signOut,
     refreshSession,

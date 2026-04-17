@@ -5,7 +5,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { Shield, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
-  const { user, loading } = useAuth();
+  const { user, loading, isAdmin } = useAuth();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4">
@@ -36,7 +36,7 @@ export default function HomePage() {
             >
               Go to Dashboard <ArrowRight className="w-4 h-4" />
             </Link>
-            {user.user_metadata?.role === 'admin' && (
+            {isAdmin && (
               <Link
                 href="/admin"
                 className="flex items-center justify-center gap-2 w-full px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"

@@ -71,9 +71,17 @@ export async function middleware(req: NextRequest) {
     }
 
     // Block non-admin users from admin routes
+    // Role lives in contractor_profiles.role (authoritative) with a fallback
+    // to auth.user_metadata.role for legacy/consolidated accounts.
     if (isAdminRoute && session) {
-      const role = session.user.user_metadata?.role
-      if (role !== 'admin') {
+      const { data: profile } = await supabase
+        .from('contractor_profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .maybeSingle()
+      const metaRole = (session.user.user_metadata as { role?: string } | null | undefined)?.role
+      const isAdmin = profile?.role === 'admin' || metaRole === 'admin'
+      if (!isAdmin) {
         return NextResponse.redirect(new URL('/dashboard', req.url))
       }
     }

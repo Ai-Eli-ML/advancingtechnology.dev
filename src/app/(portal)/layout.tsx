@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
-  LayoutDashboard, ListTodo, ClipboardCheck, FileText, User, LogOut, ChevronLeft, Menu, X
+  LayoutDashboard, ListTodo, ClipboardCheck, FileText, User, LogOut, ChevronLeft, Menu, X, Shield
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -18,7 +18,7 @@ const portalNav = [
 ]
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
-  const { user, loading, signOut } = useAuth()
+  const { user, loading, signOut, isAdmin } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -94,6 +94,15 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         </nav>
 
         <div className="p-4 border-t border-border space-y-1">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-primary hover:bg-primary/10 font-medium"
+            >
+              <Shield className="w-5 h-5" />
+              Admin Panel
+            </Link>
+          )}
           <Link
             href="/"
             className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted"
