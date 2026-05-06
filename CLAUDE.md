@@ -1,171 +1,141 @@
-# AdvancingTechnology.Dev - Claude 4 Development System
+# CLAUDE.md
 
-## 🎯 COMPREHENSIVE DEVELOPMENT FRAMEWORK FOR CLAUDE 4
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**CRITICAL: This is the complete development system that Claude 4 must follow for all work on AdvancingTechnology.Dev.**
+## What This Is
 
----
+**AT Contractor Portal** — an internal tool for Advancing Technology contractors to manage tasks (bounties), submit daily EOD reports, track time, and view documents. Admins manage contractors, review task submissions, and monitor bot conversations. Deployed to Vercel at `advancingtechnology.dev`.
 
-## 📋 MANDATORY WORKFLOW: State-Driven Development
+This is NOT a public-facing product. `robots.txt` blocks all crawlers. Auth is required for all portal functionality.
 
-### TASK 1: Initial Assessment & Context Gathering
-1. ALWAYS START HERE: Read `completed-docs/claude-ai-workflow-system/templates/docs/project_management/development-plan.json` - THE SINGLE SOURCE OF TRUTH
-2. Context Selection: Review relevant documentation:
-   - API/Backend Tasks → `completed-docs/technical_specs/API_ARCHITECTURE.md`
-   - Security Tasks → `completed-docs/technical_specs/MIDDLEWARE_ARCHITECTURE.md`
-   - Performance Tasks → `completed-docs/technical_specs/PERFORMANCE_OPTIMIZATION_PLAN.md`
-   - UI/UX Tasks → `completed-docs/claude-ai-workflow-system/templates/docs/project_management/USER_FLOWS.md`
-   - **UI UPGRADE TASKS → `AGENT_UI_UPGRADE_INSTRUCTIONS.md` (BLOCKED - Requires GitHub repo)**
-   - Email Tasks → `completed-docs/technical_specs/SMTP_SETUP_GUIDE.md`
-3. Update features-tracking.md and todos for every new task
-4. Stop and Confirm: Present analysis to user before proceeding
+## Commands
 
-### TASK 2: Strategic Planning & Architecture Analysis
-1. Use MCP Tools for Deep Analysis:
-   - Sequential Thinking Tool → Break down complex problems
-   - Database MCP Server → Inspect schemas, verify policies
-   - Browser Console Logs → Client-side diagnostics
-2. Risk Assessment: Identify breaking changes, edge cases
-3. Technical Approach: Document implementation strategy
-4. Stop and Confirm: Present plan to user before implementation
-
-### TASK 3: Implementation Following Project Standards
-1. Code Standards: Adhere to `styleGuidelines` in development-plan.json
-2. Pattern Consistency: Use existing patterns from codebase
-3. Critical Rules:
-   - Use established Supabase client patterns (NO direct client creation)
-   - Follow React/Next.js hook rules
-   - Use Zod validation for all forms and API inputs
-   - Implement error boundaries and loading states
-4. Progressive Implementation: Make changes incrementally, test frequently
-5. Stop and Confirm: Present implementation to user for review
-
-### TASK 4: Verification & Quality Assurance
-1. Required Checks:
-   ```bash
-   pnpm type-check    # MUST PASS
-   pnpm lint:check    # MUST PASS
-   pnpm build         # MUST SUCCEED
-   pnpm test-rls      # For database/critical changes
-   ```
-2. Functional Testing: Test in different user roles
-3. Performance Check: Verify no performance regressions
-4. Stop and Confirm: Present test results to user
-
-### TASK 5: Documentation & Tracking Updates
-1. MANDATORY: Update `completed-docs/claude-ai-workflow-system/templates/docs/project_management/features-tracking.md`
-   - Change status from `pending/In Progress` → `Done`
-   - Add concise implementation notes
-2. Update Related Docs: If architecture changes, update relevant documentation
-3. Mark all related todos as completed
-4. Stop and Confirm: Present final status to user
-
----
-
-## 🏗️ PROJECT ARCHITECTURE & STANDARDS
-
-- **Framework**: Next.js 15 (App Router, TypeScript strict mode)
-- **Database**: Supabase (PostgreSQL, RLS policies)
-- **Authentication**: Supabase Auth
-- **Styling**: Tailwind CSS + Shadcn/UI
-- **State Management**: React Query + Zustand
-- **Package Manager**: pnpm
-- **Testing**: Jest, Playwright, Cypress (see deployment guide)
-
-## Critical Development Rules
-1. Documentation First: Always consult guides before coding
-2. State Tracking: Use features-tracking.md and todos throughout workflow
-3. Stop Points: Present work at each major milestone
-4. Test Everything: Every change must pass type-check + lint
-5. Document Changes: Update tracking files immediately
-6. Security First: Follow security policies and input validation
-7. Performance Aware: Monitor query performance and bundle size
-
-## File Structure & Patterns
-```
-repos/advancingtechnology.dev/
-├── src/
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   └── ...
-├── types/
-├── public/
-├── completed-docs/
-│   ├── claude-ai-workflow-system/
-│   ├── technical_specs/
-│   └── ...
-└── ...
-```
-
-## 🚀 DEVELOPMENT COMMANDS
-
-### Daily Development
 ```bash
-pnpm dev           # Start development server
-pnpm type-check    # Type validation (RUN BEFORE COMMITS)
-pnpm lint:check    # Code linting validation
-pnpm lint          # Auto-fix linting issues
-pnpm build         # Production build test
+pnpm dev             # Start dev server (Turbopack)
+pnpm build           # Production build — must pass before deploy
+pnpm type-check      # TypeScript strict mode check (tsc --noEmit)
+pnpm lint:check      # ESLint with zero warnings tolerance
+pnpm lint            # ESLint with auto-fix
 ```
 
-### Database Operations
-```bash
-# Run database migrations and seed data as needed
-```
+No test runner is configured yet (`pnpm test-rls` is a no-op stub).
 
-### Quality Assurance
-```bash
-pnpm test-rls      # Run test suite
-pnpm build         # Must succeed for deployment
-```
+**Vercel deploy**: Uses `npm install --legacy-peer-deps && npm run build` per `vercel.json` — this overrides the monorepo pnpm setup for Vercel's build environment.
 
-## 🔒 ENVIRONMENT & SECURITY
+## Architecture
 
-### Required Environment Variables
-- NEXT_PUBLIC_SUPABASE_URL
-- NEXT_PUBLIC_SUPABASE_ANON_KEY
-- SUPABASE_SERVICE_ROLE_KEY
-- NEXT_PUBLIC_SITE_URL
+### Route Groups
 
-### Security Standards
-- All forms use Zod validation
-- Supabase RLS policies protect all data access
-- Rate limiting on API endpoints
-- Audit logging for admin actions
-- Security headers for protection
+The app has two authenticated route groups with separate layouts and sidebar navigation:
 
-## 📊 TASK COMPLETION CRITERIA
+- **`(portal)/`** — Contractor-facing. Layout in `src/app/(portal)/layout.tsx`. Pages: dashboard, tasks, tasks/[id], eod, documents, profile.
+- **`(admin)/`** — Admin-only. Layout in `src/app/(admin)/layout.tsx`. Pages: admin (dashboard), admin/contractors, admin/tasks, admin/tasks/[id], admin/eod-reports, admin/bot-conversations.
 
-- All type errors resolved
-- All linting warnings addressed
-- Production build succeeds
-- Database policies tested
-- User roles tested
-- Performance verified
-- Documentation updated
-- features-tracking.md status updated
-- User confirms completion
+The root `page.tsx` is a landing page that shows "Sign In", "Go to Dashboard", or "Admin Panel" based on auth state.
 
----
+### Auth & Role Gating
 
-## 🚨 PENDING UI UPGRADE TASK
+Two-layer auth:
 
-**STATUS: BLOCKED - Awaiting GitHub Repository Information**
+1. **Middleware** (`middleware.ts`): Server-side. Redirects unauthenticated users to `/auth` for protected routes. For `/admin` routes, queries `contractor_profiles.role` (with fallback to `user_metadata.role`) and redirects non-admins to `/dashboard`.
 
-There is a pending UI upgrade task that requires integration of UI patterns from an external GitHub repository. 
-See `AGENT_UI_UPGRADE_INSTRUCTIONS.md` for detailed requirements and implementation steps.
+2. **AuthProvider** (`src/components/AuthProvider.tsx`): Client-side React context. Provides `user`, `session`, `profile`, `isAdmin`, `loading`, `signOut`, `refreshSession`. Profile fetch is fire-and-forget (non-blocking) — `isAdmin` falls back to `user_metadata.role` until the profile loads.
 
-**Required from user:**
-1. GitHub repository URL containing UI patterns/design system
-2. Specific UI improvement areas to focus on
-3. Priority components to update
+Admin status is determined by: `contractor_profiles.role === 'admin'` OR `user_metadata.role === 'admin'`.
 
-Once this information is provided, follow the workflow in `AGENT_UI_UPGRADE_INSTRUCTIONS.md` to:
-- Analyze and extract UI patterns from the repository
-- Update this CLAUDE.md with the new design guidelines
-- Systematically upgrade UI components across the project
+### Supabase Client Pattern
 
----
+Three client factories — always use these, never create clients directly:
 
-**REMEMBER: Stop at each major milestone and confirm with the user before proceeding. This ensures alignment and prevents unnecessary work.** 
+| Factory | Location | Context |
+|---------|----------|---------|
+| `createSupabaseBrowser()` | `src/lib/supabase.ts` | Client components, query functions |
+| `createSupabaseServer()` | `src/lib/supabase-server.ts` | Server Components, API routes (uses cookies) |
+| `createSupabaseAdmin()` | `src/lib/supabase-server.ts` | Service-role operations (bypasses RLS) |
+
+All three fall back to placeholder URLs during build time when env vars are missing, so `next build` succeeds without Supabase credentials.
+
+### Data Layer
+
+Query functions live in `src/lib/queries/` and are organized by domain:
+
+| Module | Tables | Key Operations |
+|--------|--------|----------------|
+| `tasks.ts` | `bounties`, `task_submissions` | Browse/claim/submit tasks via RPCs (`claim_bounty`, `submit_bounty_work`) |
+| `admin.ts` | `bounties`, `task_submissions`, `eod_reports`, `bounty_activity` | Review submissions via RPC (`review_submission`), create tasks, activity feed |
+| `eod.ts` | `eod_reports` | Upsert daily reports (conflict on `contractor_id,report_date`) |
+| `contractors.ts` | `contractor_profiles`, `documents` | Profile lookup, document listing |
+| `timeclock.ts` | `time_clock` | Clock in/out shifts |
+| `botconvos.ts` | `bot_conversations` | List Discord bot conversation logs |
+| `user.ts` | — | User-related queries |
+
+Tasks use a bounty model: `available → claimed → submitted → approved/rejected`. State transitions are enforced by Supabase RPCs, not client-side updates.
+
+### API Routes
+
+| Route | Purpose | Auth |
+|-------|---------|------|
+| `POST /api/auth` | Auth operations | Public |
+| `GET /api/auth/callback` | Supabase OAuth callback | Public |
+| `POST /api/aj-chat` | Canned chatbot responses (keyword matching, no LLM) | Public |
+| `POST /api/notify-review` | Sends Discord DM + channel notification when admin reviews a task | Session required |
+| `POST /api/checkout` | Stripe checkout session creation | Session required |
+| `GET /api/checkout-session` | Retrieve checkout session | Session required |
+| `POST /api/webhooks/stripe` | Stripe webhook handler | Stripe signature |
+
+### Discord Integration
+
+`/api/notify-review` sends Discord notifications via Bot API when an admin approves/rejects/requests revision on a task submission. Uses `DISCORD_BOT_TOKEN` env var. Contractor must have `discord_id` in their `contractor_profiles` row. Office channel mapping is hardcoded in the route handler.
+
+### Maintenance Mode
+
+Set `MAINTENANCE_MODE=true` env var to redirect all traffic to `/maintenance`. Middleware allows static assets and API routes through.
+
+## Supabase Tables
+
+Core tables (defined in `supabase/migrations/20260413_contractor_portal.sql`):
+
+- `contractor_profiles` — id (FK to auth.users), full_name, email, role, status, discord_id
+- `bounties` — Tasks with title, description, reward, difficulty, category, galaxy_id, status, claimed_by, source
+- `task_submissions` — Proof of work per bounty (bounty_id, version, proof_url, proof_text, attachments, status)
+- `bounty_activity` — Activity log for bounty state changes
+- `eod_reports` — Daily end-of-day reports (contractor_id, report_date, tasks_completed, blockers, plan_tomorrow, hours_worked, loom_url, mood)
+- `time_clock` — Clock in/out records (contractor_id, clock_in, clock_out)
+- `bot_conversations` — Discord bot conversation logs
+- `documents` — Contractor-facing documents (is_active, sort_order)
+
+Legacy tables from the plugin marketplace pivot exist in earlier migrations but are not used.
+
+## Environment Variables
+
+**Required for runtime:**
+- `NEXT_PUBLIC_SUPABASE_URL` — Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase anonymous key
+- `SUPABASE_SERVICE_ROLE_KEY` — For admin operations
+- `NEXT_PUBLIC_SITE_URL` — Canonical site URL
+
+**Optional integrations:**
+- `DISCORD_BOT_TOKEN` — For task review notifications
+- `STRIPE_SECRET_KEY` — For checkout
+- `STRIPE_WEBHOOK_SECRET` — For webhook verification
+- `MAINTENANCE_MODE` — Set to `true` to enable maintenance redirect
+
+## UI Stack
+
+- **shadcn/ui** components in `src/components/ui/` (button, card, input, label, select, table, textarea, skeleton)
+- **Tailwind CSS v3** with `tailwind-merge` + `clsx` via `cn()` helper (`src/lib/utils.ts`)
+- **Framer Motion** for animations (`src/components/animations/`, `src/components/effects/`)
+- **Lucide React** for icons
+- **next-themes** for dark mode
+- **sonner** for toast notifications
+- **recharts** for charts
+- **react-hook-form** + **zod** for form validation
+
+## Conventions
+
+- Path alias: `@/*` maps to `./src/*`
+- TypeScript strict mode enforced — `ignoreBuildErrors: false` in next.config
+- ESLint runs during build — `ignoreDuringBuilds: false`
+- Console statements stripped in production via `compiler.removeConsole`
+- Security headers (HSTS, X-Frame-Options, CSP-adjacent) set in `next.config.ts`
+- Package manager for this project is **pnpm** locally, but Vercel build uses npm (per `vercel.json`)
