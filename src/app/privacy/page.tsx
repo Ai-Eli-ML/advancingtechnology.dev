@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import type { Metadata } from "next";
-import NavigationBar from "@/components/NavigationBar";
-import Footer from "@/components/Footer";
+import Link from "next/link";
 import { Shield } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -19,7 +18,14 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <NavigationBar />
+      <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-lg border-b border-border">
+        <div className="container flex h-16 items-center">
+          <Link href="/" className="flex items-center gap-2">
+            <Shield className="h-6 w-6 text-primary" />
+            <span className="font-bold text-lg">AT Portal</span>
+          </Link>
+        </div>
+      </nav>
       <main className="min-h-screen py-16 sm:py-24">
         <div className="container max-w-4xl">
           {/* Header */}
@@ -358,7 +364,9 @@ export default function PrivacyPage() {
           </div>
         </div>
       </main>
-      <Footer />
+      <footer className="py-8 text-center text-sm text-muted-foreground border-t">
+        <p>Advancing Technology LLC</p>
+      </footer>
     </>
   );
 }
